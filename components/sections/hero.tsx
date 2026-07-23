@@ -1,0 +1,82 @@
+"use client";
+
+import { motion, type Variants } from "motion/react";
+
+const container: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
+
+export default function Hero() {
+  return (
+    <section className="relative flex flex-col items-center justify-center min-h-screen px-6 overflow-hidden bg-dark-900">
+      {/* Video background placeholder */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/hero-poster.jpg"
+        className="absolute inset-0 w-full h-full object-cover"
+        >
+        <source src="/hero-dubai.mp4" type="video/mp4" />
+      </video>
+
+        <div className="absolute inset-0 bg-linear-to-b from-dark-900/0 to-dark-900/90 to-80% z-[1]" />        
+        <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 text-center max-w-6xl h-screen flex justify-end flex-col pb-16 gap-10 items-center"
+      >
+
+        <motion.h1
+          variants={item}
+          className="font-title text-7xl font-bold text-light-100 leading-16"
+          style={{ textShadow: "0 2px 20px rgba(0,0,0,0.35)" }}
+        >
+          RECOVERY SOLUTIONS
+          <br />
+          FOR THE GCC
+        </motion.h1>
+
+        <motion.p
+          variants={item}
+          className="font-text text-xl text-light-300"
+          style={{ textShadow: "0 1px 10px rgba(0,0,0,0.35)" }}
+        >
+          We build the infrastructure that allows your team to focus on what
+          matters most — the vision.
+        </motion.p>
+
+       <motion.a
+  variants={item}
+  href="#contact"
+  className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-light-100 px-14 py-6 font-heading text-light-300 text-xl backdrop-blur-md bg-light-100/5 w-fit"
+>
+  {/* Radial fill, expands outward from bottom-center, sized relative to the button */}
+  <span
+    className="absolute left-1/2 bottom-0 h-[300%] w-[300%] -translate-x-1/2 translate-y-1/2 scale-0 rounded-full bg-light-100 transition-transform duration-500 ease-out group-hover:scale-100"
+    aria-hidden="true"
+  />
+
+  {/* Ticker text */}
+  <span className="relative z-10 block h-6 overflow-hidden">
+    <span className="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-6">
+      <span className="h-6 leading-6 text-light-100">Get in touch</span>
+      <span className="h-6 leading-6 text-dark-900">Get in touch</span>
+    </span>
+  </span>
+</motion.a>
+      </motion.div>
+    </section>
+  );
+}
