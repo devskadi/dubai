@@ -5,11 +5,13 @@ import {
   Wix_Madefor_Text,
   Tiro_Devanagari_Hindi,
   Noto_Naskh_Arabic,
-  Playfair,
-} from "next/font/google";
+  Playfair, Geist } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/nav";
 import SplashScreen from "@/components/splash-screen";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const title = Raleway({
   subsets: ["latin"],
@@ -58,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
         className={`${title.variable} ${heading.variable} ${text.variable} ${hindi.variable} ${arabic.variable} ${highlight.variable} bg-light-100 text-dark-900 antialiased`}
       >
