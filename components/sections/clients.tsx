@@ -35,7 +35,7 @@ function LogoCard({ name, src }: { name: string; src: string }) {
 
 export default function Clients() {
   return (
-    <section className="bg-light-100 py-20 flex flex-col gap-10">
+    <section className="bg-light-100 px-32 py-20 flex flex-col gap-10">
       <p className="text-center font-title text-2xl text-accent-500">
         #1 Trusted Partner for the GCC&apos;s Largest Financial Institutions
       </p>
