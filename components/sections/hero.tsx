@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "motion/react";
+import { TextLoop } from "@/components/motion-primitives/text-loop";
 
 const container: Variants = {
   hidden: { opacity: 0 },
@@ -18,7 +19,6 @@ const item: Variants = {
 export default function Hero() {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen px-6 overflow-hidden bg-dark-900">
-      {/* Video background placeholder */}
       <video
         autoPlay
         muted
@@ -26,18 +26,18 @@ export default function Hero() {
         playsInline
         poster="/hero-poster.jpg"
         className="absolute inset-0 w-full h-full object-cover"
-        >
+      >
         <source src="/hero-dubai.mp4" type="video/mp4" />
       </video>
 
-        <div className="absolute inset-0 bg-linear-to-b from-dark-900/0 to-dark-900/90 to-80% z-[1]" />        
-        <motion.div
+      <div className="absolute inset-0 bg-linear-to-b from-dark-900/0 to-dark-900/80 to-80% z-1" />
+
+      <motion.div
         variants={container}
         initial="hidden"
         animate="show"
         className="relative z-10 text-center max-w-6xl h-screen flex justify-end flex-col pb-16 gap-10 items-center"
       >
-
         <motion.h1
           variants={item}
           className="font-title text-7xl font-bold text-light-100 leading-16"
@@ -57,25 +57,52 @@ export default function Hero() {
           matters most — the vision.
         </motion.p>
 
-       <motion.a
-  variants={item}
-  href="#contact"
-  className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-light-100 px-14 py-6 font-heading text-light-300 text-xl backdrop-blur-md bg-light-100/5 w-fit"
->
-  {/* Radial fill, expands outward from bottom-center, sized relative to the button */}
-  <span
-    className="absolute left-1/2 bottom-0 h-[300%] w-[300%] -translate-x-1/2 translate-y-1/2 scale-0 rounded-full bg-light-100 transition-transform duration-500 ease-out group-hover:scale-100"
-    aria-hidden="true"
-  />
+        <motion.div
+          variants={item}
+          className="text-3xl text-light-100 inline-flex items-center justify-center gap-2 font-highlight tracking-wider h-10"
+        >
+          We Speak{" "}
+          <span className="inline-block w-40 text-left px-2">
+          <TextLoop
+            className="overflow-y-clip text-accent-500 not-italic"
+            transition={{
+              type: "spring",
+              stiffness: 900,
+              damping: 80,
+              mass: 10,
+            }}
+            variants={{
+              initial: { y: 20, rotateX: 90, opacity: 0, filter: "blur(4px)" },
+              animate: { y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" },
+              exit: { y: -20, rotateX: -90, opacity: 0, filter: "blur(4px)" },
+            }}
+          >
+            <span className="font-arabic">العربية</span>
+            <span className="font-highlight italic">Arabic</span>
+            <span className="font-highlight italic">English</span>
+            <span className="font-hindi">हिन्दी</span>
+            <span className="font-highlight italic">Hindu</span>
+            <span className="font-highlight italic">Filipino</span>
+          </TextLoop>
+          </span>
+        </motion.div>
 
-  {/* Ticker text */}
-  <span className="relative z-10 block h-6 overflow-hidden">
-    <span className="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-6">
-      <span className="h-6 leading-6 text-light-100">Get in touch</span>
-      <span className="h-6 leading-6 text-dark-900">Get in touch</span>
-    </span>
-  </span>
-</motion.a>
+        <motion.a
+          variants={item}
+          href="#contact"
+          className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-light-100 px-12 py-6 font-text backdrop-blur-md bg-light-100/5 w-fit"
+        >
+          <span
+            className="absolute left-1/2 bottom-0 h-[300%] w-[300%] -translate-x-1/2 translate-y-1/2 scale-0 rounded-full bg-light-100 transition-transform duration-500 ease-out group-hover:scale-100"
+            aria-hidden="true"
+          />
+          <span className="relative z-10 block h-6 overflow-hidden">
+            <span className="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-6">
+              <span className="h-6 leading-6 text-light-100 font-text text-lg">Get in touch</span>
+              <span className="h-6 leading-6 text-dark-900 font-text text-lg">Get in touch</span>
+            </span>
+          </span>
+        </motion.a>
       </motion.div>
     </section>
   );
