@@ -5,7 +5,7 @@ import {
   Wix_Madefor_Text,
   Tiro_Devanagari_Hindi,
   Noto_Naskh_Arabic,
-  Playfair_Display,
+  Playfair,
 } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/nav";
@@ -41,7 +41,7 @@ const arabic = Noto_Naskh_Arabic({
   weight: ["400", "700"],
 });
 
-const highlight = Playfair_Display({
+const highlight = Playfair({
   subsets: ["latin"],
   variable: "--font-highlight",
   weight: ["500", "600", "700"],

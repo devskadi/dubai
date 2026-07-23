@@ -59,31 +59,31 @@ export default function Hero() {
 
         <motion.div
           variants={item}
-          className="text-3xl text-light-100 inline-flex items-center justify-center gap-2 font-highlight tracking-wider h-10"
+          className="text-3xl text-light-100 inline-flex items-center gap-2 font-highlight h-10"
         >
           We Speak{" "}
-          <span className="inline-block w-40 text-left px-2">
-          <TextLoop
-            className="overflow-y-clip text-accent-500 not-italic"
-            transition={{
-              type: "spring",
-              stiffness: 900,
-              damping: 80,
-              mass: 10,
-            }}
-            variants={{
-              initial: { y: 20, rotateX: 90, opacity: 0, filter: "blur(4px)" },
-              animate: { y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" },
-              exit: { y: -20, rotateX: -90, opacity: 0, filter: "blur(4px)" },
-            }}
-          >
-            <span className="font-arabic">العربية</span>
-            <span className="font-highlight italic">Arabic</span>
-            <span className="font-highlight italic">English</span>
-            <span className="font-hindi">हिन्दी</span>
-            <span className="font-highlight italic">Hindu</span>
-            <span className="font-highlight italic">Filipino</span>
-          </TextLoop>
+          <span className="inline-block">
+            <TextLoop
+              className="overflow-y-clip text-accent-500 not-italic"
+              transition={{
+                type: "spring",
+                stiffness: 900,
+                damping: 80,
+                mass: 10,
+              }}
+              variants={{
+                initial: { y: 20, rotateX: 90, opacity: 0, filter: "blur(4px)" },
+                animate: { y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" },
+                exit: { y: -20, rotateX: -90, opacity: 0, filter: "blur(4px)" },
+              }}
+            >
+              <span className="font-arabic">العربية</span>
+              <span className="font-highlight italic">Arabic</span>
+              <span className="font-highlight italic">English</span>
+              <span className="font-hindi">हिन्दी</span>
+              <span className="font-highlight italic">Hindu</span>
+              <span className="font-highlight italic">Filipino</span>
+            </TextLoop>
           </span>
         </motion.div>
 
