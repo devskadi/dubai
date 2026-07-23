@@ -14,7 +14,6 @@ import SplashScreen from "@/components/splash-screen";
 const title = Raleway({
   subsets: ["latin"],
   variable: "--font-title",
-  weight: ["600", "700"],
 });
 
 const heading = Wix_Madefor_Display({
