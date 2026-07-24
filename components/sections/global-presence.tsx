@@ -266,10 +266,13 @@ export default function GlobalPresence() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full h-screen min-h-160 ml-auto overflow-hidden lg:translate-x-10"
+        className="relative w-full h-screen min-h-160 ml-auto overflow-hidden"
         style={{ maxWidth: 760 }}
       >
-        <div className="absolute inset-0 h-full w-[155%] translate-x-[-22%]">
+        <div
+          className="absolute top-0 bottom-0 left-0 h-full"
+          style={{ width: "160%", transform: "translateX(-12%)" }}
+        >
           <MilitaryMap
             markers={locations.map((loc, index) => ({
               label: loc.title.split(",")[0],
