@@ -46,7 +46,7 @@ export default function About() {
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.35, 0.95]);
 
   return (
     <motion.section
@@ -55,7 +55,7 @@ export default function About() {
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={container}
-      className="bg-light-100 p-32 flex flex-col gap-24"
+      className="bg-light-100 px-32 py-20 flex flex-col gap-24"
     >
       <motion.div variants={item} className="flex flex-col gap-4">
         <p className="font-heading text-xl text-primary-700 uppercase">
@@ -112,7 +112,7 @@ export default function About() {
           <motion.a
             variants={item}
             href="/about"
-            className="group mt-2 inline-flex w-fit items-center gap-2 font-title text-2xl uppercase text-dark-900"
+            className="group mt-2 inline-flex w-fit items-center gap-2 self-end font-title text-2xl uppercase text-dark-900"
           >
             <span className="relative block h-6 overflow-hidden">
               <span className="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-6">
