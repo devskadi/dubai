@@ -37,7 +37,6 @@ export default function Stats() {
     offset: ["start 0.9", "start 0.15"],
   });
 
-  // Spring-smoothed so the whole thing glides rather than steps
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 60,
     damping: 20,
@@ -49,9 +48,6 @@ export default function Stats() {
 
   const words = paragraph.split(" ");
 
-  // Fade width: how long (as a fraction of total scroll) each word
-  // takes to go from muted -> full color. Bigger = softer, more
-  // overlap between neighboring words = more of a fade, less "typewriter".
   const fadeWidth = 0.35;
   const step = (1 - fadeWidth) / Math.max(words.length - 1, 1);
 
@@ -59,9 +55,10 @@ export default function Stats() {
     <section className="relative bg-light-100 px-32 py-20">
       <div className="grid grid-cols-1 gap-20 md:grid-cols-[7fr_3fr] w-full">
         <div ref={containerRef} className="flex h-full flex-col justify-center gap-4">
-          <motion.p className="font-heading text-2xl text-primary-700">
+          <p className="font-heading text-2xl text-primary-700">
             BY THE NUMBERS
-          </motion.p>
+          </p>
+
           <p className="font-text text-4xl leading-relaxed">
             {words.map((word, i) => {
               const start = i * step;
@@ -75,7 +72,13 @@ export default function Stats() {
           </p>
         </div>
 
-        <div className="rounded-3xl bg-light-200 p-8 flex flex-col gap-2 w-full h-full justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+          className="rounded-3xl bg-light-200 p-8 flex flex-col gap-2 w-full h-full justify-between"
+        >
           <div className="flex font-digits text-accent-500 font-bold">
             <span className="text-7xl font-bold">+</span>
             <NumberTicker
@@ -87,7 +90,7 @@ export default function Stats() {
           <p className="font-heading text-xl text-dark-900">
             Delivering results across the GCC
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
