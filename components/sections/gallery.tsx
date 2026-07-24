@@ -9,22 +9,22 @@ const ROW_TWO_SPEED = 25;
 
 // Adjust this to control the height of each row (and therefore
 // each image, since images fill the row height with auto width).
-const ROW_HEIGHT = 256; // px
+const ROW_HEIGHT = 150; // px
 
 const rowOneImages = [
-  "/images/gallery-1.jpg",
-  "/images/gallery-2.jpg",
-  "/images/gallery-3.jpg",
-  "/images/gallery-4.jpg",
-  "/images/gallery-5.jpg",
+  "/images/gallery-1.jpeg",
+  "/images/gallery-2.jpeg",
+  "/images/gallery-3.jpeg",
+  "/images/gallery-4.jpeg",
+  "/images/gallery-5.jpeg",
 ];
 
 const rowTwoImages = [
-  "/images/gallery-6.jpg",
-  "/images/gallery-7.jpg",
-  "/images/gallery-8.jpg",
-  "/images/gallery-9.jpg",
-  "/images/gallery-10.jpg",
+  "/images/gallery-1.jpeg",
+  "/images/gallery-2.jpeg",
+  "/images/gallery-3.jpeg",
+  "/images/gallery-4.jpeg",
+  "/images/gallery-5.jpeg",
 ];
 
 export default function Gallery() {
