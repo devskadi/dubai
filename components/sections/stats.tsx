@@ -44,7 +44,7 @@ export default function Stats() {
   });
 
   const paragraph =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco";
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
   const words = paragraph.split(" ");
 
@@ -52,10 +52,10 @@ export default function Stats() {
   const step = (1 - fadeWidth) / Math.max(words.length - 1, 1);
 
   return (
-    <section className="relative bg-light-100 px-32 py-20">
-      <div className="grid grid-cols-1 gap-20 md:grid-cols-[7fr_3fr] w-full h-fit">
-        <div ref={containerRef} className="flex h-full flex-col justify-center gap-4">
-          <p className="font-heading text-2xl text-primary-700">
+    <section className="bg-light-100 p-32">
+      <div className="flex w-full gap-32 items-stretch">
+        <div ref={containerRef} className="flex flex-col justify-center gap-4 w-4/6 p-8 rounded-3xl">
+          <p className="font-heading text-xl text-primary-700">
             BY THE NUMBERS
           </p>
 
@@ -77,10 +77,10 @@ export default function Stats() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="rounded-3xl bg-light-200 p-8 flex flex-col gap-2 w-full h-full justify-between"
+          className="rounded-3xl bg-light-200 p-8 flex flex-col gap-2 w-2/6 justify-between"
         >
-          <div className="flex font-digits text-accent-500 font-bold">
-            <span className="text-7xl font-bold">+</span>
+          <div className="flex">
+            <span className="text-7xl font-bold font-digits text-accent-500">+</span>
             <NumberTicker
                 value={3000}
                 startValue={2900}
