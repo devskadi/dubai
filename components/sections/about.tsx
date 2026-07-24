@@ -55,7 +55,7 @@ export default function About() {
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={container}
-      className="bg-light-100 p-32 flex flex-col gap-16"
+      className="bg-light-100 p-32 flex flex-col gap-24"
     >
       <motion.div variants={item} className="flex flex-col gap-4">
         <p className="font-heading text-xl text-primary-700 uppercase">
@@ -78,17 +78,17 @@ export default function About() {
         <motion.div
           ref={imageRef}
           variants={item}
-          className="overflow-hidden rounded-2xl w-2/5"
+          className="relative overflow-hidden rounded-2xl w-3/7 self-stretch"
         >
           <motion.img
             src="/images/about_placeholder.webp"
             alt="About Us"
             style={{ scale }}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 block w-full h-full object-cover"
           />
         </motion.div>
 
-        <motion.div ref={servicesRef} variants={container} className="flex flex-col w-3/5 gap-12">
+        <motion.div ref={servicesRef} variants={container} className="flex flex-col w-4/7 gap-12">
           {services.map((service) => (
             <motion.div
               key={service.number}
@@ -108,6 +108,47 @@ export default function About() {
               </div>
             </motion.div>
           ))}
+
+          <motion.a
+            variants={item}
+            href="/about"
+            className="group mt-2 inline-flex w-fit items-center gap-2 font-title text-2xl uppercase text-dark-900"
+          >
+            <span className="relative block h-6 overflow-hidden">
+              <span className="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-6">
+                <span className="h-6 leading-6">About us</span>
+                <span className="h-6 leading-6">About us</span>
+              </span>
+            </span>
+            <span className="relative block h-6 overflow-hidden">
+              <span className="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-6">
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="h-6 w-6 stroke-current"
+                  fill="none"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M9 7h8v8" />
+                </svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="h-6 w-6 stroke-current"
+                  fill="none"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M9 7h8v8" />
+                </svg>
+              </span>
+            </span>
+          </motion.a>
         </motion.div>
       </div>
     </motion.section>
