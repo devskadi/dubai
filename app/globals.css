@@ -143,17 +143,10 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
   body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
+    @apply bg-light-100 text-dark-900;
   }
 }
-
 
 html {
   scrollbar-width: none; /* Firefox */
@@ -162,4 +155,8 @@ html {
 
 html::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge (Chromium) */
+}
+
+html, body {
+  overscroll-behavior: none;
 }
