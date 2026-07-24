@@ -29,7 +29,7 @@ const rowTwoImages = [
 
 export default function Gallery() {
   return (
-    <section className="bg-light-100 py-24 flex flex-col gap-6">
+    <section className="flex flex-col gap-6 py-6 bg-light-100">
       <InfiniteSlider gap={24} speed={ROW_ONE_SPEED}>
         {rowOneImages.map((src, i) => (
           <div
