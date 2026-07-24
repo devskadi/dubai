@@ -104,6 +104,7 @@ interface Props {
     grid: GridConfig
     layout: LayoutConfig
     interaction: InteractionConfig
+    selectedMarkerIndex?: number
 }
 
 interface HoveredMarker {
@@ -130,6 +131,7 @@ interface ProjectedPoint {
 }
 
 interface CountryEntry {
+    key: string
     id: string
     name: string
     type: string
@@ -592,9 +594,6 @@ function buildSphericalPath(
     }
     return ""
 }
-
-/* ========================================================================== */
-/* TopoJSON Decoder */
 /* ========================================================================== */
 
 function decArcs(t: any): number[][][] {
@@ -753,8 +752,16 @@ const DATA_URL =
 /* ========================================================================== */
 
 export default function MilitaryMap(props: Props) {
-    const { markers, countries, mapStyle, tooltip, grid, layout, interaction } =
-        props
+    const {
+        markers,
+        countries,
+        mapStyle,
+        tooltip,
+        grid,
+        layout,
+        interaction,
+        selectedMarkerIndex,
+    } = props
 
     const containerRef = React.useRef<HTMLDivElement>(null)
     const svgRef = React.useRef<SVGSVGElement>(null)
@@ -769,6 +776,7 @@ export default function MilitaryMap(props: Props) {
     const [err, setErr] = React.useState(false)
     const [hM, setHM] = React.useState<HoveredMarker | null>(null)
     const [hC, setHC] = React.useState<HoveredCountry | null>(null)
+    const uid = React.useId().replace(/:/g, "")
 
     // Live rotation state held in refs to avoid React reconciliation per frame.
     // Mapping to user-facing axis controls:
@@ -789,6 +797,9 @@ export default function MilitaryMap(props: Props) {
     })
     const lastMouseRef = React.useRef<{ x: number; y: number } | null>(null)
     const userInteractedRef = React.useRef<number>(0) // timestamp of last drag end
+    const targetMarkerRef = React.useRef<{ lambda: number; phi: number } | null>(
+        null
+    )
 
     /* SSR guard */
     React.useEffect(() => {
@@ -804,6 +815,20 @@ export default function MilitaryMap(props: Props) {
             rotRef.current.gamma = interaction.rotateX
         }
     }, [interaction.rotateX, interaction.rotateY, interaction.rotateZ])
+
+    React.useEffect(() => {
+        const selectedMarker =
+            typeof selectedMarkerIndex === "number"
+                ? markers[selectedMarkerIndex]
+                : null
+
+        targetMarkerRef.current = selectedMarker
+            ? {
+                  lambda: selectedMarker.longitude,
+                  phi: selectedMarker.latitude,
+              }
+            : null
+    }, [markers, selectedMarkerIndex])
 
     /* Resize observer */
     React.useEffect(() => {
@@ -890,6 +915,7 @@ export default function MilitaryMap(props: Props) {
                 for (const poly of f.coords) for (const r of poly) visit(r)
             }
             out.push({
+                key: `${a3}-${out.length}`,
                 id: a3,
                 name: nm,
                 type: f.type,
@@ -950,9 +976,25 @@ export default function MilitaryMap(props: Props) {
             if (
                 interaction.autoRotate &&
                 !dragRef.current.active &&
-                sinceUser > idleMs
+                sinceUser > idleMs &&
+                !targetMarkerRef.current
             ) {
                 rotRef.current.lambda += interaction.autoRotateSpeed * dt
+            }
+
+            if (targetMarkerRef.current && !dragRef.current.active) {
+                const targetLambda = targetMarkerRef.current.lambda
+                const targetPhi = targetMarkerRef.current.phi
+                const lambdaDiff =
+                    ((targetLambda - rotRef.current.lambda + 540) % 360) - 180
+                const phiDiff = targetPhi - rotRef.current.phi
+
+                rotRef.current.lambda += lambdaDiff * 0.06
+                rotRef.current.phi += phiDiff * 0.06
+
+                if (Math.abs(lambdaDiff) < 0.5 && Math.abs(phiDiff) < 0.5) {
+                    targetMarkerRef.current = null
+                }
             }
 
             const { lambda, phi, gamma } = rotRef.current
@@ -969,9 +1011,9 @@ export default function MilitaryMap(props: Props) {
                     cx,
                     cy
                 )
-                const p = pathRefs.current.get(c.id)
+                const p = pathRefs.current.get(c.key)
                 if (p) p.setAttribute("d", d)
-                const g = ghostPathRefs.current.get(c.id)
+                const g = ghostPathRefs.current.get(c.key)
                 if (g) g.setAttribute("d", d)
             }
 
@@ -1217,7 +1259,6 @@ export default function MilitaryMap(props: Props) {
     const { glowColor, glowIntensity, enableDrag, showLabels } = interaction
 
     const loading = !feats && !err
-    const uid = React.useRef(Math.random().toString(36).slice(2, 6)).current
     const fG = "g" + uid
     const fL = "l" + uid
     const gO = "o" + uid
@@ -1344,40 +1385,10 @@ export default function MilitaryMap(props: Props) {
                         />
                     </filter>
 
-                    {/* Subtle ambient lighting on the disc */}
-                    <radialGradient id={gShade} cx="38%" cy="32%" r="78%">
-                        <stop offset="0%" stopColor={rgba("#ffffff", 0.12)} />
-                        <stop offset="55%" stopColor={rgba("#ffffff", 0.0)} />
-                        <stop offset="92%" stopColor={rgba("#000000", 0.32)} />
-                        <stop offset="100%" stopColor={rgba("#000000", 0.55)} />
-                    </radialGradient>
-
-                    {/* Atmosphere halo */}
-                    <radialGradient id={gAtm} cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor={rgba(glowColor, 0)} />
-                        <stop
-                            offset={
-                                ((R / Math.max(R + 60, 1)) * 100).toFixed(1) +
-                                "%"
-                            }
-                            stopColor={rgba(glowColor, 0)}
-                        />
-                        <stop
-                            offset={
-                                (((R + 6) / Math.max(R + 60, 1)) * 100).toFixed(
-                                    1
-                                ) + "%"
-                            }
-                            stopColor={rgba(glowColor, 0.4 * glowIntensity)}
-                        />
-                        <stop offset="100%" stopColor={rgba(glowColor, 0)} />
-                    </radialGradient>
-
                     {/* Subtle ocean tonal gradient */}
                     <linearGradient id={gO} x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor={rgba("#2c3137", 0.35)} />
-                        <stop offset="50%" stopColor={rgba("#171a1e", 0.06)} />
-                        <stop offset="100%" stopColor={rgba("#0f1114", 0.3)} />
+                        <stop offset="0%" stopColor={rgba("#2c3137", 0.18)} />
+                        <stop offset="100%" stopColor={rgba("#0f1114", 0.18)} />
                     </linearGradient>
 
                     {/* Disc clip — confines geometry inside the globe outline */}
@@ -1398,18 +1409,8 @@ export default function MilitaryMap(props: Props) {
                         />
                     ))}
 
-                {/* Atmosphere halo */}
-                <circle
-                    cx={cx}
-                    cy={cy}
-                    r={R + 60}
-                    fill={"url(#" + gAtm + ")"}
-                    pointerEvents="none"
-                />
-
                 {/* Ocean disc */}
                 <circle cx={cx} cy={cy} r={R} fill={oceanColor} />
-                <circle cx={cx} cy={cy} r={R} fill={"url(#" + gO + ")"} />
 
                 {/* Clipped content */}
                 <g clipPath={"url(#" + clipDisc + ")"}>
@@ -1417,10 +1418,10 @@ export default function MilitaryMap(props: Props) {
                     <g opacity={0.07} filter={"url(#" + fL + ")"}>
                         {countryIndex.map((c) => (
                             <path
-                                key={"g" + c.id}
+                                key={`g-${c.key}`}
                                 ref={(el) => {
-                                    if (el) ghostPathRefs.current.set(c.id, el)
-                                    else ghostPathRefs.current.delete(c.id)
+                                    if (el) ghostPathRefs.current.set(c.key, el)
+                                    else ghostPathRefs.current.delete(c.key)
                                 }}
                                 fill={landFill}
                                 stroke="none"
@@ -1450,10 +1451,10 @@ export default function MilitaryMap(props: Props) {
                             !enabled && cc ? disabledColor : landFill
                         return (
                             <path
-                                key={c.id}
+                                key={c.key}
                                 ref={(el) => {
-                                    if (el) pathRefs.current.set(c.id, el)
-                                    else pathRefs.current.delete(c.id)
+                                    if (el) pathRefs.current.set(c.key, el)
+                                    else pathRefs.current.delete(c.key)
                                 }}
                                 className="mm-c"
                                 fill={initialFill}
@@ -1466,23 +1467,14 @@ export default function MilitaryMap(props: Props) {
                     })}
                 </g>
 
-                {/* Globe lighting overlay — sits above geometry, below markers */}
-                <circle
-                    cx={cx}
-                    cy={cy}
-                    r={R}
-                    fill={"url(#" + gShade + ")"}
-                    pointerEvents="none"
-                />
-
                 {/* Crisp limb stroke */}
                 <circle
                     cx={cx}
                     cy={cy}
                     r={R}
                     fill="none"
-                    stroke={rgba(glowColor, 0.35 * glowIntensity)}
-                    strokeWidth={1}
+                    stroke={rgba(glowColor, 0.14 * glowIntensity)}
+                    strokeWidth={0.5}
                     pointerEvents="none"
                 />
 

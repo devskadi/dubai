@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
-import createGlobe from "cobe";
+import { useState, useCallback } from "react";
 import { motion } from "motion/react";
 import MilitaryMap from "@/components/ui/globe";
 
@@ -89,13 +88,6 @@ const globeInteraction = {
   showStars: false,
   showLabels: true,
 };
-
-function locationToAngles(lat: number, lng: number): [number, number] {
-  return [
-    Math.PI - ((lng * Math.PI) / 180 - Math.PI / 2),
-    (lat * Math.PI) / 180,
-  ];
-}
 
 function AccordionIcon({ isOpen }: { isOpen: boolean }) {
   const accentColor = "var(--color-accent-500)";
@@ -226,143 +218,6 @@ function AccordionRow({
   );
 }
 
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-function Globe({ activeIndex }: { activeIndex: number }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const pointerInteracting = useRef<number | null>(null);
-  const pointerInteractionMovement = useRef(0);
-  const phiRef = useRef(0);
-  const targetPhiRef = useRef<number | null>(null);
-  const targetThetaRef = useRef(0.3);
-  const thetaRef = useRef(0.3);
-  const sizeRef = useRef(600);
-
-  useEffect(() => {
-    const [phi, theta] = locationToAngles(
-      locations[activeIndex].lat,
-      locations[activeIndex].lng
-    );
-    targetPhiRef.current = phi;
-    targetThetaRef.current = theta;
-  }, [activeIndex]);
-
-  useEffect(() => {
-    const element = wrapperRef.current;
-
-    if (!element) {
-      return;
-    }
-
-    const observer = new ResizeObserver((entries) => {
-      const nextWidth = entries[0]?.contentRect.width;
-
-      if (nextWidth) {
-        sizeRef.current = nextWidth;
-      }
-    });
-
-    observer.observe(element);
-
-    const globe = createGlobe(canvasRef.current!, {
-      devicePixelRatio: 2,
-      width: sizeRef.current * 2,
-      height: sizeRef.current * 2,
-      phi: 0,
-      theta: 0.3,
-      dark: 1,
-      diffuse: 1.2,
-      mapSamples: 16000,
-      mapBrightness: 6,
-      baseColor: [0.35, 0.35, 0.4],
-      markerColor: [0.86, 0.63, 0.37],
-      glowColor: [0.2, 0.25, 0.35],
-      markers: locations.map((loc) => ({
-        location: [loc.lat, loc.lng] as [number, number],
-        size: 0.06,
-      })),
-    });
-
-    let frame = 0;
-
-    const render = () => {
-      if (pointerInteracting.current === null) {
-        phiRef.current += 0.003;
-      }
-
-      if (targetPhiRef.current !== null) {
-        const diff = targetPhiRef.current - phiRef.current;
-        const wrapped = Math.atan2(Math.sin(diff), Math.cos(diff));
-        phiRef.current += wrapped * 0.04;
-
-        const thetaDiff = targetThetaRef.current - thetaRef.current;
-        thetaRef.current += thetaDiff * 0.04;
-      }
-
-      globe.update({
-        phi: phiRef.current + pointerInteractionMovement.current,
-        theta: thetaRef.current,
-        width: sizeRef.current * 2,
-        height: sizeRef.current * 2,
-      });
-
-      frame = window.requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      globe.destroy();
-      observer.disconnect();
-    };
-  }, []);
-
-  return (
-    <div
-      ref={wrapperRef}
-      className="relative w-full aspect-square ml-auto lg:translate-x-10"
-      style={{ maxWidth: 760 }}
-    >
-      <canvas
-        ref={canvasRef}
-        onPointerDown={(e) => {
-          pointerInteracting.current =
-            e.clientX - pointerInteractionMovement.current;
-          if (canvasRef.current) canvasRef.current.style.cursor = "grabbing";
-        }}
-        onPointerUp={() => {
-          pointerInteracting.current = null;
-          if (canvasRef.current) canvasRef.current.style.cursor = "grab";
-        }}
-        onPointerOut={() => {
-          pointerInteracting.current = null;
-          if (canvasRef.current) canvasRef.current.style.cursor = "grab";
-        }}
-        onMouseMove={(e) => {
-          if (pointerInteracting.current !== null) {
-            const delta = e.clientX - pointerInteracting.current;
-            pointerInteractionMovement.current = delta * 0.005;
-          }
-        }}
-        onTouchMove={(e) => {
-          if (pointerInteracting.current !== null && e.touches[0]) {
-            const delta = e.touches[0].clientX - pointerInteracting.current;
-            pointerInteractionMovement.current = delta * 0.005;
-          }
-        }}
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "block",
-          cursor: "grab",
-          contain: "layout paint size",
-        }}
-      />
-    </div>
-  );
-}
-
 export default function GlobalPresence() {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -371,7 +226,7 @@ export default function GlobalPresence() {
   }, []);
 
   return (
-    <section className="bg-dark-900 px-32 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-center overflow-hidden">
+    <section className="bg-dark-900 px-32 py-24 grid grid-cols-1 md:grid-cols-2 gap-16 items-stretch overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -411,24 +266,27 @@ export default function GlobalPresence() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full aspect-square ml-auto lg:translate-x-10"
+        className="relative w-full h-screen min-h-160 ml-auto overflow-hidden lg:translate-x-10"
         style={{ maxWidth: 760 }}
       >
-        <MilitaryMap
-          markers={locations.map((loc, index) => ({
-            label: loc.title.split(",")[0],
-            description: loc.subheader,
-            latitude: loc.lat,
-            longitude: loc.lng,
-            color: index === activeIndex ? "#E53E3E" : "#7a8086",
-          }))}
-          countries={globeCountries}
-          mapStyle={globeMapStyle}
-          tooltip={globeTooltip}
-          grid={globeGrid}
-          layout={globeLayout}
-          interaction={globeInteraction}
-        />
+        <div className="absolute inset-0 h-full w-[155%] translate-x-[-22%]">
+          <MilitaryMap
+            markers={locations.map((loc, index) => ({
+              label: loc.title.split(",")[0],
+              description: loc.subheader,
+              latitude: loc.lat,
+              longitude: loc.lng,
+              color: index === activeIndex ? "#E53E3E" : "#7a8086",
+            }))}
+            countries={globeCountries}
+            mapStyle={globeMapStyle}
+            tooltip={globeTooltip}
+            grid={globeGrid}
+            layout={globeLayout}
+            interaction={globeInteraction}
+            selectedMarkerIndex={activeIndex}
+          />
+        </div>
       </motion.div>
     </section>
   );
