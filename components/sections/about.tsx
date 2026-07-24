@@ -39,13 +39,14 @@ const services = [
 
 export default function About() {
   const imageRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: imageRef,
     offset: ["start end", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.15]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
 
   return (
     <motion.section
@@ -54,21 +55,30 @@ export default function About() {
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={container}
-      className="bg-light-100 px-32 py-24 flex flex-col gap-16"
+      className="bg-light-100 p-32 flex flex-col gap-16"
     >
-      <motion.h2
-        variants={item}
-        className="font-title text-5xl font-bold max-w-xl"
-      >
-        <span className="text-primary-800">Powering the operational trust</span>{" "}
-        <span className="text-accent-500">of our business</span>
-      </motion.h2>
+      <motion.div variants={item} className="flex flex-col gap-4">
+        <p className="font-heading text-xl text-primary-700 uppercase">
+          Operational Trust
+        </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        <div className="flex gap-32">
+          <h2 className="font-title text-5xl font-bold text-accent-500 w-4/6">
+            Trusted to run the front line of our business
+          </h2>
+          <p className="font-text text-xl text-dark-800 w-2/6">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+            enim ad minim veniam
+          </p>
+        </div>
+      </motion.div>
+
+      <div className="flex w-full gap-32 items-stretch">
         <motion.div
           ref={imageRef}
           variants={item}
-          className="overflow-hidden rounded-2xl aspect-[4/5]"
+          className="overflow-hidden rounded-2xl w-2/5"
         >
           <motion.img
             src="/images/about_placeholder.webp"
@@ -78,35 +88,26 @@ export default function About() {
           />
         </motion.div>
 
-        <motion.div variants={container} className="flex flex-col">
+        <motion.div ref={servicesRef} variants={container} className="flex flex-col w-3/5 gap-12">
           {services.map((service) => (
             <motion.div
               key={service.number}
               variants={item}
-              className="flex gap-6 py-8 border-b border-light-300 first:pt-0"
+              className="flex gap-12 border-b border-accent-500 last:border-b-0 pb-8 items-center"
             >
-              <span className="font-text text-sm text-dark-700 border border-dark-700 rounded-full h-8 w-8 flex items-center justify-center shrink-0">
+              <span className="font-heading text-base text-primary-700 border border-primary-700 rounded-full h-14 w-14 flex items-center justify-center shrink-0">
                 {service.number}
               </span>
               <div className="flex flex-col gap-2">
-                <h3 className="font-heading text-2xl text-primary-800">
+                <h3 className="font-title w-full text-3xl text-primary-700">
                   {service.title}
                 </h3>
-                <p className="font-text text-dark-700 max-w-md">
+                <p className="font-text w-full text-base text-dark-800">
                   {service.description}
                 </p>
               </div>
             </motion.div>
           ))}
-
-          <motion.a
-            variants={item}
-            href="#about"
-            className="font-text text-sm tracking-widest uppercase text-dark-900 mt-8 inline-flex items-center gap-2 w-fit hover:text-accent-500 transition-colors"
-          >
-            About Us
-            <span>↗</span>
-          </motion.a>
         </motion.div>
       </div>
     </motion.section>
