@@ -52,7 +52,7 @@ export default function Stats() {
   const step = (1 - fadeWidth) / Math.max(words.length - 1, 1);
 
   return (
-    <section className="bg-light-100 p-32">
+    <section className="bg-light-100 px-32 py-20">
       <div className="flex w-full gap-32 items-stretch">
         <div ref={containerRef} className="flex flex-col justify-center gap-4 w-4/6 p-8 rounded-3xl">
           <p className="font-heading text-xl text-primary-700">
