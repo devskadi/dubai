@@ -160,3 +160,7 @@ html::-webkit-scrollbar {
 html, body {
   overscroll-behavior: none;
 }
+
+* {
+  cursor: none !important;
+}
