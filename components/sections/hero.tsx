@@ -30,7 +30,7 @@ export default function Hero() {
         <source src="/hero-dubai.mp4" type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 bg-linear-to-b from-dark-900/0 to-dark-900/80 to-80% z-1" />
+      <div className="absolute inset-0 bg-linear-to-b from-primary-800/95 via-dark-900/20 to-dark-900/95 z-1" />
 
       <motion.div
         variants={container}
@@ -72,9 +72,9 @@ export default function Hero() {
                 mass: 10,
               }}
               variants={{
-                initial: { y: 20, rotateX: 90, opacity: 0, filter: "blur(4px)" },
-                animate: { y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" },
-                exit: { y: -20, rotateX: -90, opacity: 0, filter: "blur(4px)" },
+                initial: { y: 20, rotateX: 90, opacity: 0 },
+                animate: { y: 0, rotateX: 0, opacity: 1 },
+                exit: { y: -20, rotateX: -90, opacity: 0 },
               }}
             >
               <span className="font-arabic">العربية</span>

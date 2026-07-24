@@ -53,7 +53,7 @@ export default function Stats() {
 
   return (
     <section className="relative bg-light-100 px-32 py-20">
-      <div className="grid grid-cols-1 gap-20 md:grid-cols-[7fr_3fr] w-full">
+      <div className="grid grid-cols-1 gap-20 md:grid-cols-[7fr_3fr] w-full h-fit">
         <div ref={containerRef} className="flex h-full flex-col justify-center gap-4">
           <p className="font-heading text-2xl text-primary-700">
             BY THE NUMBERS
@@ -87,7 +87,7 @@ export default function Stats() {
                 className="text-7xl tracking-tight text-accent-500 font-digits font-bold"
             />
           </div>
-          <p className="font-heading text-xl text-dark-900">
+          <p className="font-heading text-xl text-dark-800">
             Delivering results across the GCC
           </p>
         </motion.div>

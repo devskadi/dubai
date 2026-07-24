@@ -34,7 +34,7 @@ export default function Nav() {
         />
       </a>
 
-      <nav className="hidden md:flex gap-10 font-heading font-medium text-base text-light-100 backdrop-blur px-6 py-4 rounded-xl">
+      <nav className="hidden md:flex gap-10 font-heading font-medium text-base text-light-100 px-6 py-4 rounded-xl">
         {links.map((link) => {
           return (
             <a
