@@ -11,6 +11,7 @@ import "./globals.css";
 import Nav from "@/components/nav";
 import SplashScreen from "@/components/splash-screen";
 import { cn } from "@/lib/utils";
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -75,6 +76,7 @@ export default function RootLayout({
         <SplashScreen />
         <Nav />
         {children}
+        <SmoothCursor />
       </body>
     </html>
   );
