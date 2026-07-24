@@ -6,15 +6,15 @@
 @theme {
   /* Mono */
   --color-light-100: #ffffff;
-  --color-light-200: #f5f5f5;
-  --color-light-300: #e5e5e5;
-  --color-dark-900: #0a0a0a;
-  --color-dark-800: #1a1a1a;
-  --color-dark-700: #4a4a4a;
+  --color-light-200: #F7FAFC;
+  --color-light-300: #E8EDF2;
+  --color-dark-900: #202020;
+  --color-dark-800: #54555A;
+  --color-dark-700: #BDC5D0;
 
   /* Branding */
-  --color-primary-800: #0c1f3f;
-  --color-primary-700: #16305e;
+  --color-primary-800: #003A6C;
+  --color-primary-700: #0b3969;
   --color-accent-600: #b8860b;
   --color-accent-500: #DFB85F;
 
@@ -25,6 +25,8 @@
   --font-hindi: var(--font-hindi);
   --font-arabic: var(--font-arabic);
   --font-highlight: var(--font-highlight);
+  --font-digits: var(--font-digits);
+
 }
 
 @theme inline {

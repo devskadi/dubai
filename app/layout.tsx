@@ -5,6 +5,7 @@ import {
   Wix_Madefor_Text,
   Tiro_Devanagari_Hindi,
   Noto_Naskh_Arabic,
+  Montserrat,
   Playfair, Geist } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/nav";
@@ -48,6 +49,13 @@ const highlight = Playfair({
   weight: ["500", "600", "700"],
 });
 
+const digits = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-digits",
+  weight: ["700", "800"],
+});
+
+
 export const metadata: Metadata = {
   title: "SPM Dubai — Recovery Solutions for the GCC",
   description:
@@ -62,7 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
       <body
-        className={`${title.variable} ${heading.variable} ${text.variable} ${hindi.variable} ${arabic.variable} ${highlight.variable} bg-light-100 text-dark-900 antialiased`}
+        className={`${title.variable} ${heading.variable} ${text.variable} ${hindi.variable} ${arabic.variable} ${highlight.variable} ${digits.variable} bg-light-100 text-dark-900 antialiased`}
       >
         <SplashScreen />
         <Nav />
