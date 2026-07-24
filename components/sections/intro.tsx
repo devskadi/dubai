@@ -35,49 +35,61 @@ export default function Intro() {
       whileInView="show"
       viewport={{ once: true, amount: 0.3 }}
       variants={container}
-      className="bg-light-100 px-32 py-24 flex flex-col items-center text-center gap-4"
+      className="bg-light-100 px-32 pb-20 pt-32 flex flex-col items-center text-center gap-6"
     >
-      <motion.h2
-        variants={item}
-        className="font-title text-6xl font-bold text-primary-800"
-      >
-        What makes us the right partner
-      </motion.h2>
-
-      <motion.p
-        variants={item}
-        className="font-text text-lg text-dark-800 max-w-2xl"
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam
-      </motion.p>
-
-      <motion.p
-        variants={item}
-        className="font-highlight italic text-xl text-primary-700 mt-12"
-      >
-        We Speak Your Language
-      </motion.p>
-
+      {/* Group 1: heading + paragraph */}
       <motion.div
         variants={container}
-        className="flex items-center gap-16 mt-6"
+        className="flex flex-col items-center gap-4"
       >
-        {languages.map((lang) => (
-          <motion.div
-            key={lang.label}
-            variants={langItem}
-            className="flex flex-col items-center gap-2"
-          >
-            <span className={`${lang.font} text-3xl text-accent-500`}>
-              {lang.word}
-            </span>
-            <span className="font-text text-xs tracking-widest text-dark-700">
-              {lang.label}
-            </span>
-          </motion.div>
-        ))}
+        <motion.h2
+          variants={item}
+          className="font-title text-6xl font-bold text-primary-800"
+        >
+          What makes us the right partner
+        </motion.h2>
+
+        <motion.p
+          variants={item}
+          className="font-text text-2xl text-dark-800 max-w-prose"
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+          ad minim veniam
+        </motion.p>
+      </motion.div>
+
+      {/* Group 2: language showcase */}
+      <motion.div
+        variants={container}
+        className="flex flex-col items-center gap-6 mt-12"
+      >
+        <motion.p
+          variants={item}
+          className="font-highlight italic text-3xl text-primary-700"
+        >
+          WE SPEAK YOUR LANGUAGE
+        </motion.p>
+
+        <motion.div
+          variants={container}
+          className="flex items-center gap-8"
+        >
+          {languages.map((lang) => (
+            <motion.div
+              key={lang.label}
+              variants={langItem}
+              className="flex flex-col items-center gap-2"
+            >
+              <span className={`${lang.font} text-4xl text-accent-500`}>
+                {lang.word}
+              </span>
+              <span className="font-text text-base text-dark-800">
+                {lang.label}
+              </span>
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
     </motion.section>
   );
