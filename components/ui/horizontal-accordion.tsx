@@ -51,8 +51,12 @@ export function HorizontalAccordion({
 
   return (
     <AccordionContext.Provider value={{ activeId, setActiveId }}>
+      {/* pt gives the overflowing portrait room to breathe above the row */}
       <div
-        className={cn("flex w-full gap-3 md:gap-4", className)}
+        className={cn(
+          "flex w-full items-end gap-3 pt-16 md:pt-24 md:gap-4",
+          className
+        )}
         style={{ height }}
       >
         {children}
@@ -85,10 +89,11 @@ export function HorizontalAccordionItem({
       layout
       transition={{ type: "spring", stiffness: 300, damping: 32, mass: 0.9 }}
       className={cn(
-        "relative h-full overflow-hidden rounded-2xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+        "relative h-full rounded-2xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
         isActive ? "flex-[5]" : "flex-1 min-w-[84px] md:min-w-[110px]",
         className
       )}
+      style={{ zIndex: isActive ? 20 : 10 }}
     >
       <AnimatePresence initial={false} mode="popLayout">
         <motion.div

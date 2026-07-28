@@ -14,9 +14,11 @@ interface TeamMember {
   badge: string;
   bio: string;
   initials: string;
-  accent: string;
-  image?: string; // e.g. "/team/ivy.png" — leave undefined for initials fallback
+  image?: string;
 }
+
+// shared across every expanded card — do not vary per member
+const CARD_ACCENT = "from-slate-900 via-slate-800 to-slate-700";
 
 const team: TeamMember[] = [
   {
@@ -26,27 +28,24 @@ const team: TeamMember[] = [
     badge: "15+ Years Experience",
     bio: "Visionary leader driving S.P. Madrid's recovery excellence across the GCC with over 15 years of strategic and operational expertise.",
     initials: "IM",
-    accent: "from-slate-900 via-slate-800 to-slate-700",
     image: "/team/sir_ian.png",
   },
   {
     id: "anita",
     name: "Anita",
-    role: "Senior Recovery Associate",
-    badge: "10+ Years Experience",
-    bio: "Leads case strategy for high-value accounts, combining negotiation skill with a track record of amicable, fast settlements.",
+    role: "Business Unit Director",
+    badge: "16+ Years Experience",
+    bio: "Leads business development and client partnerships with deep expertise in financial recovery and stakeholder relations.",
     initials: "A",
-    accent: "from-emerald-950 via-emerald-900 to-emerald-800",
     image: "/team/anita.png",
   },
   {
     id: "mubarak",
     name: "Mubarak",
-    role: "Legal & Compliance Lead",
-    badge: "12+ Years Experience",
-    bio: "Oversees regulatory compliance and legal escalation across the GCC, keeping every recovery process on solid legal footing.",
+    role: "Executive Director",
+    badge: "20+ Years Experience",
+    bio: "Oversees executive operations and strategic initiatives, ensuring seamless delivery across all recovery mandates.",
     initials: "M",
-    accent: "from-indigo-950 via-indigo-900 to-indigo-800",
     image: "/team/mubarak.png",
   },
   {
@@ -56,7 +55,6 @@ const team: TeamMember[] = [
     badge: "15+ Years Experience",
     bio: "Manages day-to-day operations and process optimization, ensuring efficiency and quality across all projects.",
     initials: "I",
-    accent: "from-rose-950 via-rose-900 to-rose-800",
     image: "/team/ivy.png",
   },
 ];
@@ -112,7 +110,7 @@ export default function Team() {
 
 function CollapsedCard({ member }: { member: TeamMember }) {
   return (
-    <div className="group relative h-full w-full bg-slate-100 transition-colors hover:bg-slate-200">
+    <div className="group relative h-full w-full overflow-hidden rounded-2xl bg-slate-100 transition-colors hover:bg-slate-200">
       {member.image ? (
         <Image
           src={member.image}
@@ -149,43 +147,48 @@ function CollapsedCard({ member }: { member: TeamMember }) {
 
 function ExpandedCard({ member }: { member: TeamMember }) {
   return (
-    <div
-      className={`relative h-full w-full ${
-        !member.image ? `bg-gradient-to-br ${member.accent}` : ""
-      } p-8 md:p-10 flex flex-col justify-end text-white overflow-hidden`}
-    >
+    <div className="relative h-full w-full">
+      {/* card shape + shared gradient — clipped to the rounded corners */}
+      <div
+        className={`absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br ${CARD_ACCENT}`}
+      />
+
+      {/* portrait — sized taller than the card itself, bottom-anchored,
+          so the head naturally pokes above the top edge. NOT clipped. */}
       {member.image && (
-        <>
-          <Image
+        <div className="pointer-events-none absolute bottom-0 right-2 h-[122%] w-auto md:right-6 md:h-[128%]">
+          <img
             src={member.image}
             alt={member.name}
-            fill
-            className="object-cover"
-            sizes="(min-width: 768px) 40vw, 90vw"
+            className="h-full w-auto object-contain object-bottom"
           />
-          <div
-            className={`absolute inset-0 bg-gradient-to-t ${member.accent} opacity-80`}
-          />
-        </>
+        </div>
       )}
 
       {!member.image && (
-        <div className="absolute right-8 top-8 grid h-20 w-20 place-items-center rounded-full bg-white/10 text-xl font-semibold backdrop-blur-sm ring-1 ring-white/20">
+        <div className="absolute right-8 top-8 grid h-20 w-20 place-items-center rounded-full bg-white/10 text-xl font-semibold text-white backdrop-blur-sm ring-1 ring-white/20">
           {member.initials}
         </div>
       )}
 
-      <span className="relative mb-4 inline-flex w-fit items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium tracking-wide backdrop-blur-sm">
-        {member.badge}
-      </span>
+      {/* text scrim, clipped to the card shape, sits above the gradient but below the copy */}
+      <div className="absolute inset-0 rounded-2xl overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+      </div>
 
-      <p className="relative text-xs font-semibold uppercase tracking-widest text-white/60">
-        {member.role}
-      </p>
-      <h3 className="relative mt-1 text-3xl md:text-4xl font-bold">{member.name}</h3>
-      <p className="relative mt-3 max-w-md text-sm md:text-base text-white/70">
-        {member.bio}
-      </p>
+      {/* copy */}
+      <div className="absolute inset-x-0 bottom-0 flex flex-col p-8 text-white md:p-10">
+        <span className="mb-4 inline-flex w-fit items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium tracking-wide backdrop-blur-sm">
+          {member.badge}
+        </span>
+        <p className="text-xs font-semibold uppercase tracking-widest text-white/60">
+          {member.role}
+        </p>
+        <h3 className="mt-1 text-3xl font-bold md:text-4xl">{member.name}</h3>
+        <p className="mt-3 max-w-md text-sm text-white/70 md:text-base">
+          {member.bio}
+        </p>
+      </div>
     </div>
   );
 }
