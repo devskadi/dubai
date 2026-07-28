@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import {
   HorizontalAccordion,
@@ -14,6 +15,7 @@ interface TeamMember {
   bio: string;
   initials: string;
   accent: string;
+  image?: string; // e.g. "/team/ivy.png" — leave undefined for initials fallback
 }
 
 const team: TeamMember[] = [
@@ -25,6 +27,7 @@ const team: TeamMember[] = [
     bio: "Visionary leader driving S.P. Madrid's recovery excellence across the GCC with over 15 years of strategic and operational expertise.",
     initials: "IM",
     accent: "from-slate-900 via-slate-800 to-slate-700",
+    image: "/team/sir_ian.png",
   },
   {
     id: "anita",
@@ -34,6 +37,7 @@ const team: TeamMember[] = [
     bio: "Leads case strategy for high-value accounts, combining negotiation skill with a track record of amicable, fast settlements.",
     initials: "A",
     accent: "from-emerald-950 via-emerald-900 to-emerald-800",
+    image: "/team/anita.png",
   },
   {
     id: "mubarak",
@@ -43,6 +47,7 @@ const team: TeamMember[] = [
     bio: "Oversees regulatory compliance and legal escalation across the GCC, keeping every recovery process on solid legal footing.",
     initials: "M",
     accent: "from-indigo-950 via-indigo-900 to-indigo-800",
+    image: "/team/mubarak.png",
   },
   {
     id: "ivy",
@@ -52,6 +57,7 @@ const team: TeamMember[] = [
     bio: "Manages day-to-day operations and process optimization, ensuring efficiency and quality across all projects.",
     initials: "I",
     accent: "from-rose-950 via-rose-900 to-rose-800",
+    image: "/team/ivy.png",
   },
 ];
 
@@ -107,15 +113,31 @@ export default function Team() {
 function CollapsedCard({ member }: { member: TeamMember }) {
   return (
     <div className="group relative h-full w-full bg-slate-100 transition-colors hover:bg-slate-200">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="grid h-16 w-16 place-items-center rounded-full bg-slate-400/40 text-lg font-semibold text-slate-500 grayscale">
-          {member.initials}
+      {member.image ? (
+        <Image
+          src={member.image}
+          alt={member.name}
+          fill
+          className="object-cover grayscale"
+          sizes="120px"
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="grid h-16 w-16 place-items-center rounded-full bg-slate-400/40 text-lg font-semibold text-slate-500">
+            {member.initials}
+          </div>
         </div>
-      </div>
+      )}
+
+      {member.image && (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+      )}
 
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
         <span
-          className="block text-sm font-semibold uppercase tracking-widest text-slate-500"
+          className={`block text-sm font-semibold uppercase tracking-widest ${
+            member.image ? "text-white" : "text-slate-500"
+          }`}
           style={{ writingMode: "vertical-rl" }}
         >
           {member.name}
@@ -128,21 +150,40 @@ function CollapsedCard({ member }: { member: TeamMember }) {
 function ExpandedCard({ member }: { member: TeamMember }) {
   return (
     <div
-      className={`relative h-full w-full bg-gradient-to-br ${member.accent} p-8 md:p-10 flex flex-col justify-end text-white overflow-hidden`}
+      className={`relative h-full w-full ${
+        !member.image ? `bg-gradient-to-br ${member.accent}` : ""
+      } p-8 md:p-10 flex flex-col justify-end text-white overflow-hidden`}
     >
-      <div className="absolute right-8 top-8 grid h-20 w-20 place-items-center rounded-full bg-white/10 text-xl font-semibold backdrop-blur-sm ring-1 ring-white/20">
-        {member.initials}
-      </div>
+      {member.image && (
+        <>
+          <Image
+            src={member.image}
+            alt={member.name}
+            fill
+            className="object-cover"
+            sizes="(min-width: 768px) 40vw, 90vw"
+          />
+          <div
+            className={`absolute inset-0 bg-gradient-to-t ${member.accent} opacity-80`}
+          />
+        </>
+      )}
 
-      <span className="mb-4 inline-flex w-fit items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium tracking-wide backdrop-blur-sm">
+      {!member.image && (
+        <div className="absolute right-8 top-8 grid h-20 w-20 place-items-center rounded-full bg-white/10 text-xl font-semibold backdrop-blur-sm ring-1 ring-white/20">
+          {member.initials}
+        </div>
+      )}
+
+      <span className="relative mb-4 inline-flex w-fit items-center rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium tracking-wide backdrop-blur-sm">
         {member.badge}
       </span>
 
-      <p className="text-xs font-semibold uppercase tracking-widest text-white/60">
+      <p className="relative text-xs font-semibold uppercase tracking-widest text-white/60">
         {member.role}
       </p>
-      <h3 className="mt-1 text-3xl md:text-4xl font-bold">{member.name}</h3>
-      <p className="mt-3 max-w-md text-sm md:text-base text-white/70">
+      <h3 className="relative mt-1 text-3xl md:text-4xl font-bold">{member.name}</h3>
+      <p className="relative mt-3 max-w-md text-sm md:text-base text-white/70">
         {member.bio}
       </p>
     </div>
