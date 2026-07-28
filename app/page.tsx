@@ -5,6 +5,7 @@ import GlobalPresence from "@/components/sections/global-presence";
 import Hero from "@/components/sections/hero";
 import Intro from "@/components/sections/intro";
 import Stats from "@/components/sections/stats";
+import Team from "@/components/sections/team";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <About />
       <Gallery />
       <GlobalPresence />
+      <Team />
       {/* other sections go here */}
     </main>
   );
