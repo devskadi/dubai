@@ -76,7 +76,7 @@ export default function Team() {
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={container}
-      className="bg-light-100 px-32 py-20 flex flex-col gap-16"
+      className="bg-light-100 px-48 py-20 flex flex-col gap-16"
     >
       <motion.div variants={item} className="flex flex-col gap-4 max-w-2xl">
         <h2 className="font-title text-5xl font-bold text-primary-800">
@@ -90,7 +90,7 @@ export default function Team() {
 
       <motion.div
         variants={item}
-        className="flex h-[65vh] gap-4"
+        className="flex h-[50vh] gap-4"
       >
         {team.map((member) => (
           <TeamAccordionCard

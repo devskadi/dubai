@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+const TOP_OVERLAP_PERCENT = 30;
 
 export interface TeamAccordionCardProps {
   name: string;
@@ -30,46 +30,65 @@ export default function TeamAccordionCard({
       onMouseEnter={onActivate}
       onFocus={onActivate}
       tabIndex={0}
-      className="relative h-full transition-[flex-grow] duration-500 ease-in-out"
+      className="relative isolate h-full transition-[flex-grow] duration-500 ease-in-out"
       style={{ flexGrow: isActive ? 4 : 1, flexBasis: 0, minWidth: 90 }}
     >
-      {/* team-panel-photo — NOT clipped to the panel's own box. When
-          active, this box extends ABOVE the panel's top edge, so the
-          portion of the photo above y=0 renders freely, outside the
-          panel's bounds — that's the "poking out" effect. */}
       <div
-        className="absolute inset-x-0 bottom-0 overflow-hidden transition-all duration-500 ease-in-out"
+        className="absolute inset-0 z-0 overflow-hidden"
         style={{
-          top: isActive ? "-18%" : "0%",
           borderBottomLeftRadius: radius,
           borderBottomRightRadius: radius,
+          background:
+            "linear-gradient(180deg, rgba(8,18,42,0.4) 0%, rgba(8,18,42,0.85) 100%)",
         }}
-      >
-        {image ? (
-          <Image
-            src={image}
-            alt={name}
-            fill
-            className={`object-cover object-top transition-all duration-500 ${
-              isActive ? "grayscale-0" : "grayscale"
-            }`}
-            sizes="(min-width: 768px) 40vw, 100vw"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-dark-800">
-            <div className="grid h-16 w-16 place-items-center rounded-full bg-light-100/10 text-lg font-semibold text-light-100">
-              {initials}
-            </div>
-          </div>
-        )}
-      </div>
+      />
 
-      {/* team-panel-info — the gradient "card" layer, strictly matches
-          the panel's real bounds (0% to 100%), never extends upward.
-          This is what makes the photo above y=0 look like it's escaping
-          past a defined edge, rather than just being a taller photo. */}
+      {isActive ? (
+        <div className="absolute inset-0 z-10">
+          {image ? (
+            <img
+              src={image}
+              alt={name}
+              className="absolute bottom-0 right-0 w-auto grayscale-0 transition-all duration-500"
+              style={{
+
+                height: `${100 + TOP_OVERLAP_PERCENT}%`,
+                borderBottomLeftRadius: radius,
+                borderBottomRightRadius: radius,
+              }}
+            />
+          ) : (
+            <div className="grid h-full w-full place-items-center">
+              <div className="grid h-16 w-16 place-items-center rounded-full bg-light-100/10 text-lg font-semibold text-light-100">
+                {initials}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="absolute inset-0 z-10 overflow-hidden">
+          {image ? (
+            <img
+              src={image}
+              alt={name}
+              className="absolute inset-0 h-full w-full object-cover object-top grayscale transition-all duration-500"
+              style={{
+                borderBottomLeftRadius: radius,
+                borderBottomRightRadius: radius,
+              }}
+            />
+          ) : (
+            <div className="grid h-full w-full place-items-center">
+              <div className="grid h-16 w-16 place-items-center rounded-full bg-light-100/10 text-lg font-semibold text-light-100">
+                {initials}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       <div
-        className="absolute inset-0 overflow-hidden pointer-events-none transition-all duration-500 ease-in-out"
+        className="absolute inset-0 z-20 overflow-hidden pointer-events-none"
         style={{
           borderBottomLeftRadius: radius,
           borderBottomRightRadius: radius,
@@ -79,8 +98,8 @@ export default function TeamAccordionCard({
           className="absolute inset-0 transition-opacity duration-500"
           style={{
             background: isActive
-              ? "linear-gradient(to top, rgba(8,18,42,0.94) 0%, rgba(8,18,42,0.6) 50%, rgba(8,18,42,0.12) 100%)"
-              : "linear-gradient(to top, rgba(8,18,42,0.75) 0%, rgba(8,18,42,0.1) 60%, rgba(8,18,42,0.12) 100%)",
+              ? "linear-gradient(to top, rgba(8,18,42,0.94) 0%, rgba(8,18,42,0.6) 50%, rgba(8,18,42,0) 100%)"
+              : "linear-gradient(to top, rgba(8,18,42,0.75) 0%, rgba(8,18,42,0) 60%)",
           }}
         />
 
@@ -106,19 +125,17 @@ export default function TeamAccordionCard({
             {bio}
           </p>
         </div>
-      </div>
 
-      {/* team-panel-sliver — collapsed-state vertical name label */}
-      <div
-        className="absolute left-1/2 bottom-7 -translate-x-1/2 pointer-events-none transition-opacity duration-500"
-        style={{ opacity: isActive ? 0 : 1 }}
-      >
-        <span
-          className="block font-heading text-xs font-bold uppercase tracking-widest text-light-100/90"
-          style={{ writingMode: "vertical-rl" }}
-        >
-          {name}
-        </span>
+        {!isActive && (
+          <div className="absolute left-1/2 bottom-7 -translate-x-1/2">
+            <span
+              className="block font-heading text-xs font-bold uppercase tracking-widest text-light-100/90"
+              style={{ writingMode: "vertical-rl" }}
+            >
+              {name}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
