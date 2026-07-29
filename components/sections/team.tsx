@@ -90,7 +90,7 @@ export default function Team() {
 
       <motion.div
         variants={item}
-        className="flex h-[560px] gap-4"
+        className="flex h-[65vh] gap-4"
       >
         {team.map((member) => (
           <TeamAccordionCard
