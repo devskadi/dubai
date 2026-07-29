@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
-import TeamCard from "@/components/ui/team-card";
+import TeamAccordionCard from "@/components/ui/team-accordion-card";
 
 interface TeamMember {
   id: string;
@@ -66,6 +67,8 @@ const item = {
 };
 
 export default function Team() {
+  const [activeId, setActiveId] = useState(team[0].id);
+
   return (
     <motion.section
       id="team"
@@ -77,29 +80,30 @@ export default function Team() {
     >
       <motion.div variants={item} className="flex flex-col gap-4 max-w-2xl">
         <h2 className="font-title text-5xl font-bold text-primary-800">
-          Frontline<span className="text-accent-500">_</span>
+          Meet the Team
         </h2>
         <p className="font-text text-lg text-dark-700">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Our dedicated team consists of experts across engineering and
+          strategy, each committed to driving results and innovation.
         </p>
       </motion.div>
 
       <motion.div
-        variants={container}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+        variants={item}
+        className="flex h-[560px] gap-4"
       >
         {team.map((member) => (
-          <motion.div key={member.id} variants={item}>
-            <TeamCard
-              name={member.name}
-              role={member.role}
-              badge={member.badge}
-              bio={member.bio}
-              image={member.image}
-              initials={member.initials}
-            />
-          </motion.div>
+          <TeamAccordionCard
+            key={member.id}
+            name={member.name}
+            role={member.role}
+            badge={member.badge}
+            bio={member.bio}
+            image={member.image}
+            initials={member.initials}
+            isActive={activeId === member.id}
+            onActivate={() => setActiveId(member.id)}
+          />
         ))}
       </motion.div>
     </motion.section>
