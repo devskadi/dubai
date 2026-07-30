@@ -1,12 +1,18 @@
 "use client";
 
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 const TOP_OVERLAP_PERCENT = 30;
 const CROP_BOTTOM_PERCENT = 15;
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const DURATION = 0.5;
+const WIDTH_DURATION = 0.9;
+const FADE_DURATION = 0.8;
+const CONTENT_DURATION = 0.6;
+const EXIT_FADE_DURATION = 0.4;
+
+// brand color, rgb(11, 57, 105)
+const BRAND = "11,57,105";
 
 export interface TeamAccordionCardProps {
   name: string;
@@ -29,7 +35,8 @@ export default function TeamAccordionCard({
   isActive,
   onActivate,
 }: TeamAccordionCardProps) {
-  const radius = isActive ? 32 : 16;
+  // 📍 BORDER RADIUS — all four corners, 32 expanded / 24 closed
+  const radius = isActive ? 32 : 24;
 
   return (
     <motion.div
@@ -37,20 +44,14 @@ export default function TeamAccordionCard({
       onFocus={onActivate}
       tabIndex={0}
       className="relative isolate h-full"
-
       animate={{ flexGrow: isActive ? 4 : 1 }}
-      transition={{ duration: DURATION, ease: EASE }}
+      transition={{ duration: WIDTH_DURATION, ease: EASE }}
       style={{ flexBasis: 0, minWidth: 90 }}
     >
-
       <motion.div
         className="absolute inset-0 z-0 overflow-hidden shadow-[0_20px_50px_-15px_rgba(8,18,42,0.5)]"
-        animate={{
-          // 📍 BORDER RADIUS (bg card) — eases alongside the crossfade
-          borderBottomLeftRadius: radius,
-          borderBottomRightRadius: radius,
-        }}
-        transition={{ duration: DURATION, ease: EASE }}
+        animate={{ borderRadius: radius }}
+        transition={{ duration: WIDTH_DURATION, ease: EASE }}
       >
         {/* 📍 CARD BACKGROUND — CLOSED STATE */}
         <motion.div
@@ -60,36 +61,31 @@ export default function TeamAccordionCard({
               "linear-gradient(180deg, rgba(30,41,59,0.5) 0%, rgba(15,23,42,0.9) 100%)",
           }}
           animate={{ opacity: isActive ? 0 : 1 }}
-          transition={{ duration: DURATION, ease: EASE }}
+          transition={{ duration: FADE_DURATION, ease: EASE }}
         />
-        {/* 📍 CARD BACKGROUND — EXPANDED STATE */}
+        {/* 📍 CARD BACKGROUND — EXPANDED STATE (brand color 0b3969) */}
         <motion.div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(180deg, rgba(8,18,42,0.4) 0%, rgba(8,18,42,0.85) 100%)",
+            background: `linear-gradient(180deg, rgba(${BRAND},0.45) 0%, rgba(${BRAND},0.92) 100%)`,
           }}
           animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: DURATION, ease: EASE }}
+          transition={{ duration: FADE_DURATION, ease: EASE }}
         />
       </motion.div>
 
       <div className="absolute inset-0 z-10">
-        {/* closed-state photo: fixed fill, grayscale */}
+        {/* closed-state photo — grayscale removed */}
         <motion.div
           className="absolute inset-0 overflow-hidden"
-          style={{
-            borderBottomLeftRadius: radius,
-            borderBottomRightRadius: radius,
-          }}
-          animate={{ opacity: isActive ? 0 : 1 }}
-          transition={{ duration: DURATION, ease: EASE }}
+          animate={{ opacity: isActive ? 0 : 1, borderRadius: radius }}
+          transition={{ duration: FADE_DURATION, ease: EASE }}
         >
           {image ? (
             <img
               src={image}
               alt={name}
-              className="absolute inset-0 h-full w-full object-cover object-top grayscale"
+              className="absolute inset-0 h-full w-full object-cover object-top"
             />
           ) : (
             <div className="grid h-full w-full place-items-center">
@@ -100,48 +96,54 @@ export default function TeamAccordionCard({
           )}
         </motion.div>
 
-        <motion.div
-          className="absolute inset-0"
-          animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: DURATION, ease: EASE }}
-          style={{ pointerEvents: isActive ? "auto" : "none" }}
-        >
-          {image ? (
-            <div
-              className="absolute bottom-0 right-0 overflow-hidden"
-              style={{
-                height: `${100 + TOP_OVERLAP_PERCENT}%`,
-                borderBottomLeftRadius: radius,
-                borderBottomRightRadius: radius,
+        <AnimatePresence initial={false}>
+          {isActive && (
+            <motion.div
+              key="expanded-photo"
+              className="absolute inset-0"
+              initial={{ opacity: 0, scale: 1.03, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{
+                opacity: 0,
+                transition: { duration: EXIT_FADE_DURATION, ease: EASE },
               }}
+              transition={{ duration: FADE_DURATION, ease: EASE }}
             >
-              <img
-                src={image}
-                alt={name}
-                className="block w-auto"
-                style={{
-                  height: `${100 / (1 - CROP_BOTTOM_PERCENT / 100)}%`,
-                }}
-              />
-            </div>
-          ) : (
-            <div className="grid h-full w-full place-items-center">
-              <div className="grid h-16 w-16 place-items-center rounded-full bg-light-100/10 text-lg font-semibold text-light-100">
-                {initials}
-              </div>
-            </div>
+              {image ? (
+                <div
+                  className="absolute bottom-0 right-0 overflow-hidden"
+                  style={{
+                    height: `${100 + TOP_OVERLAP_PERCENT}%`,
+                    borderRadius: radius,
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt={name}
+                    className="block w-auto"
+                    style={{
+                      height: `${100 / (1 - CROP_BOTTOM_PERCENT / 100)}%`,
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="grid h-full w-full place-items-center">
+                  <div className="grid h-16 w-16 place-items-center rounded-full bg-light-100/10 text-lg font-semibold text-light-100">
+                    {initials}
+                  </div>
+                </div>
+              )}
+            </motion.div>
           )}
-        </motion.div>
+        </AnimatePresence>
       </div>
 
-      <div
+      <motion.div
         className="absolute inset-0 z-20 overflow-hidden pointer-events-none"
-        style={{
-          borderBottomLeftRadius: radius,
-          borderBottomRightRadius: radius,
-        }}
+        animate={{ borderRadius: radius }}
+        transition={{ duration: WIDTH_DURATION, ease: EASE }}
       >
-
+        {/* 📍 TEXT GRADIENT — CLOSED STATE */}
         <motion.div
           className="absolute inset-0"
           style={{
@@ -149,17 +151,17 @@ export default function TeamAccordionCard({
               "linear-gradient(to top, rgba(8,18,42,0.75) 0%, rgba(8,18,42,0) 60%)",
           }}
           animate={{ opacity: isActive ? 0 : 1 }}
-          transition={{ duration: DURATION, ease: EASE }}
+          transition={{ duration: FADE_DURATION, ease: EASE }}
         />
 
+        {/* 📍 TEXT GRADIENT — EXPANDED STATE (brand color 0b3969) */}
         <motion.div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(to top, rgba(8,18,42,0.94) 0%, rgba(8,18,42,0.6) 50%, rgba(8,18,42,0) 100%)",
+            background: `linear-gradient(to top, rgba(${BRAND},0.96) 0%, rgba(${BRAND},0.65) 50%, rgba(${BRAND},0) 100%)`,
           }}
           animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: DURATION, ease: EASE }}
+          transition={{ duration: FADE_DURATION, ease: EASE }}
         />
 
         <motion.div
@@ -169,7 +171,11 @@ export default function TeamAccordionCard({
               ? { opacity: 1, y: 0 }
               : { opacity: 0, y: 12 }
           }
-          transition={{ duration: DURATION, ease: EASE }}
+          transition={{
+            duration: CONTENT_DURATION,
+            ease: EASE,
+            delay: isActive ? 0.15 : 0,
+          }}
           style={{ pointerEvents: isActive ? "auto" : "none" }}
         >
           <span className="inline-flex w-fit items-center rounded-full border border-light-100/30 bg-light-100/5 px-4 py-1.5 text-[11px] font-text font-medium uppercase tracking-[0.14em] text-light-100 backdrop-blur-sm">
@@ -193,7 +199,7 @@ export default function TeamAccordionCard({
         <motion.div
           className="absolute left-1/2 bottom-7 -translate-x-1/2"
           animate={{ opacity: isActive ? 0 : 1 }}
-          transition={{ duration: DURATION, ease: EASE }}
+          transition={{ duration: FADE_DURATION, ease: EASE }}
         >
           <span
             className="block font-heading text-xs font-bold uppercase tracking-[0.2em] text-light-100/90"
@@ -202,7 +208,7 @@ export default function TeamAccordionCard({
             {name}
           </span>
         </motion.div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
