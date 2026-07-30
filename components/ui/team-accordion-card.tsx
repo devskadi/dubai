@@ -35,7 +35,6 @@ export default function TeamAccordionCard({
   isActive,
   onActivate,
 }: TeamAccordionCardProps) {
-
   const radius = isActive ? 48 : 24;
 
   return (
@@ -53,7 +52,6 @@ export default function TeamAccordionCard({
         animate={{ borderRadius: radius }}
         transition={{ duration: WIDTH_DURATION, ease: EASE }}
       >
-        {/*CARD BACKGROUND — CLOSED STATE */}
         <motion.div
           className="absolute inset-0"
           style={{
@@ -63,7 +61,6 @@ export default function TeamAccordionCard({
           animate={{ opacity: isActive ? 0 : 1 }}
           transition={{ duration: FADE_DURATION, ease: EASE }}
         />
-        {/*CARD BACKGROUND — EXPANDED STATE (var(--color-primary-700)) */}
         <motion.div
           className="absolute inset-0"
           style={{
@@ -75,7 +72,6 @@ export default function TeamAccordionCard({
       </motion.div>
 
       <div className="absolute inset-0 z-10">
-
         <motion.div
           className="absolute inset-0 overflow-hidden"
           animate={{ opacity: isActive ? 0 : 1, borderRadius: radius }}
@@ -143,7 +139,6 @@ export default function TeamAccordionCard({
         animate={{ borderRadius: radius }}
         transition={{ duration: WIDTH_DURATION, ease: EASE }}
       >
-
         <motion.div
           className="absolute inset-0"
           style={{
@@ -164,11 +159,9 @@ export default function TeamAccordionCard({
         />
 
         <motion.div
-          className="absolute inset-x-0 bottom-0 flex flex-col gap-4 p-8 md:p-10"
+          className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-8 bg-linear-to-b from-transparent to-primary-800"
           animate={
-            isActive
-              ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: 12 }
+            isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }
           }
           transition={{
             duration: CONTENT_DURATION,
@@ -177,22 +170,20 @@ export default function TeamAccordionCard({
           }}
           style={{ pointerEvents: isActive ? "auto" : "none" }}
         >
-          <span className="inline-flex w-fit items-center rounded-full border border-light-100/30 bg-light-100/5 px-4 py-1.5 text-[11px] font-text font-medium uppercase tracking-[0.14em] text-light-100 backdrop-blur-sm">
+          <span className="inline-flex w-fit items-center rounded-full border border-light-100/50 bg-light-100/5 px-4 py-1.5 text-xs font-heading font-bold uppercase tracking-[0.14em] text-light-100 backdrop-blur-sm mb-2">
             {badge}
           </span>
 
-          <div className="flex flex-col gap-1">
-            <p className="font-text text-xs font-semibold uppercase tracking-[0.2em] text-light-100/60">
+          <div className="flex flex-col gap-0.5">
+            <p className="font-heading text-sm font-semibold uppercase tracking-[0.2em] text-light-100/70">
               {role}
             </p>
-            <h3 className="font-heading text-3xl font-bold leading-tight text-light-100 md:text-4xl">
+            <h3 className="font-title text-4xl font-bold leading-snug text-light-100">
               {name}
             </h3>
           </div>
 
-          <p className="max-w-md font-text text-sm leading-relaxed text-light-100/75">
-            {bio}
-          </p>
+          <p className="max-w-md font-text text-sm text-light-300">{bio}</p>
         </motion.div>
 
         <motion.div
@@ -201,7 +192,7 @@ export default function TeamAccordionCard({
           transition={{ duration: FADE_DURATION, ease: EASE }}
         >
           <span
-            className="block font-heading text-xs font-bold uppercase tracking-[0.2em] text-light-100/90"
+            className="font-heading text-sm font-bold uppercase tracking-widest text-light-300"
             style={{ writingMode: "vertical-rl" }}
           >
             {name}

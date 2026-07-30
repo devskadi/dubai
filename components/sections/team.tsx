@@ -78,14 +78,20 @@ export default function Team() {
       variants={container}
       className="bg-light-100 px-48 py-20 flex flex-col gap-16"
     >
-      <motion.div variants={item} className="flex flex-col gap-4 max-w-2xl">
-        <h2 className="font-title text-5xl font-bold text-primary-800">
-          Meet the Team
-        </h2>
-        <p className="font-text text-lg text-dark-700">
-          Our dedicated team consists of experts across engineering and
-          strategy, each committed to driving results and innovation.
+      <motion.div variants={item} className="flex flex-col gap-4">
+        <p className="font-heading text-xl text-primary-700 uppercase">
+          Frontline
         </p>
+
+        <div className="flex gap-32">
+          <h2 className="font-title text-5xl font-bold text-accent-500 w-4/6">
+            Meet the team behind the recovery
+          </h2>
+          <p className="font-text text-xl text-dark-800 w-2/6">
+            Our dedicated team consists of experts across engineering and
+            strategy, each committed to driving results and innovation.
+          </p>
+        </div>
       </motion.div>
 
       <motion.div
