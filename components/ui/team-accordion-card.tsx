@@ -11,8 +11,8 @@ const FADE_DURATION = 0.8;
 const CONTENT_DURATION = 0.6;
 const EXIT_FADE_DURATION = 0.4;
 
-// brand color, rgb(11, 57, 105)
-const BRAND = "11,57,105";
+const brand = (opacityPercent: number) =>
+  `color-mix(in srgb, var(--color-primary-800) ${opacityPercent}%, transparent)`;
 
 export interface TeamAccordionCardProps {
   name: string;
@@ -35,8 +35,8 @@ export default function TeamAccordionCard({
   isActive,
   onActivate,
 }: TeamAccordionCardProps) {
-  // 📍 BORDER RADIUS — all four corners, 32 expanded / 24 closed
-  const radius = isActive ? 32 : 24;
+
+  const radius = isActive ? 48 : 24;
 
   return (
     <motion.div
@@ -53,7 +53,7 @@ export default function TeamAccordionCard({
         animate={{ borderRadius: radius }}
         transition={{ duration: WIDTH_DURATION, ease: EASE }}
       >
-        {/* 📍 CARD BACKGROUND — CLOSED STATE */}
+        {/*CARD BACKGROUND — CLOSED STATE */}
         <motion.div
           className="absolute inset-0"
           style={{
@@ -63,11 +63,11 @@ export default function TeamAccordionCard({
           animate={{ opacity: isActive ? 0 : 1 }}
           transition={{ duration: FADE_DURATION, ease: EASE }}
         />
-        {/* 📍 CARD BACKGROUND — EXPANDED STATE (brand color 0b3969) */}
+        {/*CARD BACKGROUND — EXPANDED STATE (var(--color-primary-700)) */}
         <motion.div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(180deg, rgba(${BRAND},0.45) 0%, rgba(${BRAND},0.92) 100%)`,
+            background: `linear-gradient(180deg, ${brand(45)} 0%, ${brand(92)} 100%)`,
           }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: FADE_DURATION, ease: EASE }}
@@ -75,7 +75,7 @@ export default function TeamAccordionCard({
       </motion.div>
 
       <div className="absolute inset-0 z-10">
-        {/* closed-state photo — grayscale removed */}
+
         <motion.div
           className="absolute inset-0 overflow-hidden"
           animate={{ opacity: isActive ? 0 : 1, borderRadius: radius }}
@@ -143,22 +143,21 @@ export default function TeamAccordionCard({
         animate={{ borderRadius: radius }}
         transition={{ duration: WIDTH_DURATION, ease: EASE }}
       >
-        {/* 📍 TEXT GRADIENT — CLOSED STATE */}
+
         <motion.div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, rgba(8,18,42,0.75) 0%, rgba(8,18,42,0) 60%)",
+              "linear-gradient(to top, rgba(8,18,42,0.75) 0%, rgba(8,18,42,0) 40%)",
           }}
           animate={{ opacity: isActive ? 0 : 1 }}
           transition={{ duration: FADE_DURATION, ease: EASE }}
         />
 
-        {/* 📍 TEXT GRADIENT — EXPANDED STATE (brand color 0b3969) */}
         <motion.div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(to top, rgba(${BRAND},0.96) 0%, rgba(${BRAND},0.65) 50%, rgba(${BRAND},0) 100%)`,
+            background: `linear-gradient(to top, ${brand(80)} 0%, ${brand(35)} 20%, ${brand(0)} 40%)`,
           }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: FADE_DURATION, ease: EASE }}
