@@ -31,14 +31,12 @@ export default function Contact() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-300 flex flex-col"
+      // the SECTION itself is now the positioning context (`relative`)
+      // for the form — the overlay below spans `inset-0` on THIS
+      // element, i.e. the section's full height (image + contact info
+      // + footer combined), not just the image block.
+      className="relative flex flex-col"
     >
-      {/* PARENT — only two children now: the image, and the form.
-          No spacer div, no gap/padding on this wrapper. Since the form
-          is `absolute` it doesn't contribute to the parent's height —
-          the parent's height is exactly the image's height, so
-          `top-1/2 -translate-y-1/2` on the form now genuinely centers
-          it on the image itself (not on some padded phantom area). */}
       <div className="relative">
         <div className="relative overflow-hidden rounded-3xl">
           <img
@@ -61,10 +59,68 @@ export default function Contact() {
             </p>
           </motion.div>
         </div>
+      </div>
 
+      {/* Contact Information */}
+      <motion.div variants={item} className="flex flex-col gap-6 px-20 pt-16">
+        <div>
+          <h3 className="font-title text-3xl font-bold text-primary-800">
+            Contact Information
+          </h3>
+          <p className="mt-2 font-text text-dark-700">
+            We&apos;re based in Dubai and serve clients across the GCC,
+            Philippines, and Singapore.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Phone className="h-5 w-5 text-primary-800" />
+          <span className="font-text text-dark-900">123-456-7890</span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Mail className="h-5 w-5 text-primary-800" />
+          <span className="font-text text-dark-900">info@mysite.com</span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <MapPin className="h-5 w-5 text-primary-800" />
+          <span className="font-text text-dark-900">
+            104, Aspin Commercial Tower, Sheikh Zayed Road, Dubai.
+          </span>
+        </div>
+
+        <div className="flex gap-3 pt-2">
+          {socials.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              aria-label={social.label}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-800 text-light-100 transition-colors hover:bg-accent-500"
+            >
+              <span className="font-text text-xs">{social.label[0]}</span>
+            </a>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Footer copyright */}
+      <motion.p
+        variants={item}
+        className="border-t border-light-300 px-20 pt-6 pb-10 text-center font-text text-sm text-dark-700"
+      >
+        © 2026 by S.P. Madrid Dubai
+      </motion.p>
+
+      {/* FORM — absolute, inset-0 relative to the SECTION (not the
+          image block above). flex + items-center centers it across the
+          section's FULL height (image + contact info + footer), which
+          is what "vertically centered in the total height of the
+          contact section" means. justify-end keeps it pinned right. */}
+      <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-end px-20">
         <motion.div
           variants={item}
-          className="absolute right-10 top-1/2 z-20 w-full max-w-md -translate-y-1/2 rounded-3xl bg-light-100 p-8 shadow-2xl"
+          className="pointer-events-auto w-full max-w-md rounded-3xl bg-light-100 p-8 shadow-2xl"
         >
           <h3 className="font-title text-2xl font-bold text-primary-800">
             Send us a message
@@ -130,57 +186,6 @@ export default function Contact() {
           </form>
         </motion.div>
       </div>
-
-      {/* Contact Information */}
-      <motion.div variants={item} className="flex flex-col gap-6 px-20">
-        <div>
-          <h3 className="font-title text-3xl font-bold text-primary-800">
-            Contact Information
-          </h3>
-          <p className="mt-2 font-text text-dark-700">
-            We&apos;re based in Dubai and serve clients across the GCC,
-            Philippines, and Singapore.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Phone className="h-5 w-5 text-primary-800" />
-          <span className="font-text text-dark-900">123-456-7890</span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Mail className="h-5 w-5 text-primary-800" />
-          <span className="font-text text-dark-900">info@mysite.com</span>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <MapPin className="h-5 w-5 text-primary-800" />
-          <span className="font-text text-dark-900">
-            104, Aspin Commercial Tower, Sheikh Zayed Road, Dubai.
-          </span>
-        </div>
-
-        <div className="flex gap-3 pt-2">
-          {socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              aria-label={social.label}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-800 text-light-100 transition-colors hover:bg-accent-500"
-            >
-              <span className="font-text text-xs">{social.label[0]}</span>
-            </a>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Footer copyright */}
-      <motion.p
-        variants={item}
-        className="border-t border-light-300 pt-6 text-center font-text text-sm text-dark-700"
-      >
-        © 2026 by S.P. Madrid Dubai
-      </motion.p>
     </motion.section>
   );
 }
