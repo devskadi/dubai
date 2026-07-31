@@ -76,7 +76,7 @@ export default function Team() {
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={container}
-      className="bg-light-100 px-48 py-20 flex flex-col gap-16"
+      className="bg-light-100 px-48 py-20 flex flex-col gap-24"
     >
       <motion.div variants={item} className="flex flex-col gap-4">
         <p className="font-heading text-xl text-primary-700 uppercase">

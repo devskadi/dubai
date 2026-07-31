@@ -6,6 +6,7 @@ import Hero from "@/components/sections/hero";
 import Intro from "@/components/sections/intro";
 import Stats from "@/components/sections/stats";
 import Team from "@/components/sections/team";
+import Contact from "@/components/sections/contact";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Gallery />
       <GlobalPresence />
       <Team />
+      <Contact />
       {/* other sections go here */}
     </main>
   );
