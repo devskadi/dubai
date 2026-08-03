@@ -6,42 +6,42 @@ import { Pencil, Clock, MapPin, Phone, ArrowRight } from "lucide-react";
 const infoCards = [
   {
     icon: Pencil,
-    title: "Drop us a line",
+    title: "Data Protection",
     description:
-      "Check out cool new spots, try out yummy local foods, and dive into different cultures.",
+      "Enterprise-grade encryption and data handling aligned with DIFC and ADGM standards",
   },
   {
     icon: Clock,
-    title: "Business hours",
+    title: "Regulatory Adherence",
     description:
-      "Check out cool new spots, try out yummy local foods, and dive into different cultures.",
+      "Full compliance with UAE Central Bank guidelines, PDPL, and regional regulatory frameworks.",
   },
   {
     icon: MapPin,
-    title: "Visit our office",
+    title: "Audit Ready",
     description:
-      "Check out cool new spots, try out yummy local foods, and dive into different cultures.",
+      "Comprehensive audit trails and documentation for all recovery activities and communications.",
   },
 ];
 
 const offices = [
   {
     city: "Dubai",
-    address: "Level 14, Emaar Square, Dubai, UAE",
-    phone: "+971 4 555 0123",
-    image: "/images/office_placeholder_1.webp",
+    address: "104, Aspin Commercial Tower, Sheikh Zayed Road, Dubai.",
+    phone: "+639876543210",
+    image: "/images/gallery-3.jpeg",
   },
   {
     city: "Manila",
-    address: "32nd Floor, Ayala Tower, Makati, PH",
-    phone: "+63 2 8555 0123",
-    image: "/images/office_placeholder_2.webp",
+    address: "17th Floor, Chatham House, Salcedo Village, Makati City.",
+    phone: "+639876543210",
+    image: "/images/ph-office-1.png",
   },
   {
-    city: "Riyadh",
-    address: "King Fahd Road, Riyadh, KSA",
-    phone: "+966 11 555 0123",
-    image: "/images/office_placeholder_3.webp",
+    city: "Singapore",
+    address: "Address, Singapore.",
+    phone: "+639876543210",
+    image: "/images/sg-office-1.png",
   },
 ];
 
@@ -66,42 +66,36 @@ export default function Contact() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-100 py-24"
+      className="bg-light-100"
     >
       {/* Top: heading + info cards */}
-      <div className="grid grid-cols-2 gap-16 px-40 pb-20">
+      <div className="grid grid-cols-[1fr_2fr] py-20">
+
         {/* Left: heading */}
-        <motion.div variants={item} className="flex flex-col gap-6">
-          <p className="font-heading text-sm font-semibold uppercase tracking-widest text-accent-500">
-            Contact
+        <motion.div variants={item} className="flex flex-col gap-4 pl-32 pr-8">
+         <p className="relative inline-block font-heading text-base text-accent-500 font-semibold uppercase tracking-widest">
+            Operational Trust
+            <span className="absolute -bottom-1 left-0 h-px w-[60%] bg-accent-500" />
           </p>
-          <h2 className="font-title text-5xl font-bold leading-tight text-dark-900">
-            Get in touch with us for more information
+          <h2 className="font-title text-4xl leading-tight">
+            Data Privacy & Regulatory Compliance
           </h2>
-          <p className="font-text text-lg leading-relaxed text-dark-700">
-            Contact us for inquiries or support we&apos;re here to help and
-            ensure an exceptional experience.
+          <p className="font-text text-base leading-relaxed text-dark-800">
+            Comprehensive recovery solutions across secured and unsecured portfolios.
           </p>
-          <a
-            href="#"
-            className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-dark-900 px-6 py-3 font-heading text-sm font-semibold text-light-100 transition-transform duration-300 hover:scale-105"
-          >
-            See All Blogs
-            <ArrowRight className="h-4 w-4" />
-          </a>
         </motion.div>
 
         {/* Right: 3 info cards */}
-        <motion.div variants={container} className="grid grid-cols-3 gap-8">
+        <motion.div variants={container} className="grid grid-cols-3 gap-8 items-start pr-32 pl-8">
           {infoCards.map((card) => (
             <motion.div key={card.title} variants={item} className="flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <h3 className="font-title text-lg font-bold text-dark-900">
+              <div className="flex h-20 items-center gap-3">
+                <h3 className="font-title text-2xl font-bold text-dark-900">
                   {card.title}
                 </h3>
-                <card.icon className="h-5 w-5 text-dark-700" />
+                <card.icon className="h-5 w-5 shrink-0 text-accent-500" />
               </div>
-              <p className="font-text text-sm leading-relaxed text-dark-700">
+              <p className="font-text text-base leading-relaxed text-dark-800">
                 {card.description}
               </p>
             </motion.div>
@@ -120,22 +114,22 @@ export default function Contact() {
             <img
               src={office.image}
               alt={office.city}
-              className="absolute inset-0 h-full w-full object-cover grayscale"
+              className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/20 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-primary-800/90 via-primary-700/40 to-transparent" />
 
             <div className="relative flex flex-col gap-3">
               <h3 className="font-title text-3xl font-bold text-light-100">
                 {office.city}
               </h3>
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 flex-shrink-0 text-light-100" />
+                <MapPin className="h-4 w-4 shrink-0 text-light-100" />
                 <span className="font-text text-sm text-light-100">
                   {office.address}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 flex-shrink-0 text-light-100" />
+                <Phone className="h-4 w-4 shrink-0 text-light-100" />
                 <span className="font-text text-sm text-light-100">
                   {office.phone}
                 </span>

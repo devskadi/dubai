@@ -16,8 +16,6 @@ export default function Home() {
       <Opening />
       <About />
       <Services />
-      <Gallery />
-      <GlobalPresence />
       <Team />
       <Contact />
       {/* other sections go here */}
