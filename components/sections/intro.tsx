@@ -84,13 +84,13 @@ export default function About() {
       variants={container}
       className="bg-light-100 px-40 py-24"
     >
-      <div className="grid gap-10 grid-cols-2">
+      {/* Row 1*/}
+      <div className="flex flex-col gap-10">
 
-        {/* Left column */}
-        <motion.div variants={item} className="flex flex-col gap-10">
-
-          {/* Heading Box */}
-          <div
+        {/* Row 1 - Cell 1: Heading*/}
+        <div className="grid grid-cols-2 gap-10 items-stretch">
+          <motion.div
+            variants={item}
             className="flex flex-col border-l-8 pl-10 py-6"
             style={{
               borderImage:
@@ -102,27 +102,14 @@ export default function About() {
             </p>
             <h2 className="font-title text-5xl font-bold leading-tight">
               <span className="text-dark-900">What makes us the </span>
-              <span className="text-accent-500 ">right partner</span>
+              <span className="text-accent-500">right partner</span>
             </h2>
-          </div>
+          </motion.div>
+          
+          {/* Row 1 - Cell 2: Image + ticker */}
+          <motion.div variants={item} className="grid grid-cols-2 gap-6">
 
-          {/* Bigger Image Box*/}
-          <div className="overflow-hidden rounded-3xl">
-            <img
-              src="/images/about_placeholder.webp"
-              alt="Our team at work"
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </motion.div>
-
-
-        {/* Right column */}
-        <motion.div variants={container} className="flex flex-col gap-10">
-
-          {/* Top: two cards side by side */}
-          <motion.div variants={item} className="grid grid-cols-2 gap-6 items-stretch">
-            {/* Smaller Image Box */}
+            {/*Image*/}
             <div className="relative overflow-hidden rounded-3xl">
               <img
                 src="/images/about_placeholder.webp"
@@ -134,7 +121,7 @@ export default function About() {
               </span>
             </div>
 
-            {/* Ticker Box */}
+            {/*Ticker*/}
             <div className="flex flex-col justify-between gap-12 rounded-3xl p-6">
               <div className="flex items-baseline">
                 <span className="font-digits text-5xl font-bold text-accent-500">
@@ -151,49 +138,69 @@ export default function About() {
               </p>
             </div>
           </motion.div>
+        </div>
 
-          {/* Paragraph with scroll-linked effects*/}
-          <div ref={paragraphRef}>
-            <p className="font-text text-2xl leading-relaxed">
-              {words.map((word, i) => {
-                const start = i * step;
-                const end = start + fadeWidth;
-                return (
-                  <Word key={i} progress={smoothProgress} range={[start, end]}>
-                    {word}
-                  </Word>
-                );
-              })}
-            </p>
-          </div>
+        {/* Row 2*/}
+        <div className="grid grid-cols-2 gap-10 items-stretch">
 
-          {/* Language showcase*/}
-          <motion.div variants={container} className="flex flex-col items-center gap-6">
-            <motion.p
-              variants={item}
-              className="font-highlight italic text-2xl text-primary-700"
+          {/* Row 2 - Cell 3: Image*/}
+          <motion.div
+            variants={item}
+            className="relative overflow-hidden rounded-3xl"
+          >
+            <img
+              src="/images/about_placeholder.webp"
+              alt="Our team at work"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </motion.div>
+
+          {/* Row 2 - Cell 4: Text group*/}
+          <motion.div variants={container} className="flex flex-col gap-10">
+            <div ref={paragraphRef}>
+              <p className="font-text text-2xl leading-relaxed">
+                {words.map((word, i) => {
+                  const start = i * step;
+                  const end = start + fadeWidth;
+                  return (
+                    <Word key={i} progress={smoothProgress} range={[start, end]}>
+                      {word}
+                    </Word>
+                  );
+                })}
+              </p>
+            </div>
+
+            <motion.div
+              variants={container}
+              className="flex flex-col items-center gap-6"
             >
-              We Speak Your Language
-            </motion.p>
+              <motion.p
+                variants={item}
+                className="font-highlight italic text-2xl text-primary-700"
+              >
+                We Speak Your Language
+              </motion.p>
 
-            <motion.div variants={container} className="flex items-center gap-8">
-              {languages.map((lang) => (
-                <motion.div
-                  key={lang.label}
-                  variants={langItem}
-                  className="flex flex-col items-center gap-2"
-                >
-                  <span className={`${lang.font} text-3xl text-accent-500`}>
-                    {lang.word}
-                  </span>
-                  <span className="font-text text-base text-dark-800">
-                    {lang.label}
-                  </span>
-                </motion.div>
-              ))}
+              <motion.div variants={container} className="flex items-center gap-8">
+                {languages.map((lang) => (
+                  <motion.div
+                    key={lang.label}
+                    variants={langItem}
+                    className="flex flex-col items-center gap-2"
+                  >
+                    <span className={`${lang.font} text-3xl text-accent-500`}>
+                      {lang.word}
+                    </span>
+                    <span className="font-text text-base text-dark-800">
+                      {lang.label}
+                    </span>
+                  </motion.div>
+                ))}
+              </motion.div>
             </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </motion.section>
   );
