@@ -82,7 +82,7 @@ export default function About() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-100 px-40 py-24"
+      className="bg-light-100 px-40 py-20"
     >
       {/* Row 1*/}
       <div className="flex flex-col gap-10">
@@ -129,7 +129,7 @@ export default function About() {
                 </span>
                 <NumberTicker
                   value={3000}
-                  startValue={1800}
+                  startValue={2900}
                   className="font-digits text-5xl font-bold tracking-tight text-accent-500"
                 />
               </div>

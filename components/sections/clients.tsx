@@ -35,19 +35,24 @@ function LogoCard({ name, src }: { name: string; src: string }) {
 
 export default function Clients() {
   return (
-    <section className="bg-light-200 px-32 py-20 flex flex-col gap-10">
-      <p className="text-center font-title text-2xl text-accent-500">
-        #1 Trusted Partner for the GCC&apos;s Largest Financial Institutions
-      </p>
+    <section className="bg-light-200 px-40 pb-8 flex pt-20 flex-col gap-10">
+      <div className="flex flex-col gap-2">
+        <p className="text-center font-title font-semibold uppercase text-base tracking-widest text-accent-600">
+          Trusted Partner
+        </p>
+        <p className="text-center font-title text-base tracking-widest text-dark-800">
+          #1 Trusted Partner for the GCC's Largest Financial Institutions
+        </p>
+      </div>
 
       <div className="flex flex-col gap-6 w-full overflow-hidden">
-        <InfiniteSlider speedOnHover={20} gap={32}>
+        <InfiniteSlider speed={40} speedOnHover={20} gap={32}>
           {clients.map((client) => (
             <LogoCard key={client.src} {...client} />
           ))}
         </InfiniteSlider>
 
-        <InfiniteSlider speedOnHover={20} gap={32} reverse>
+        <InfiniteSlider speed={40} speedOnHover={20} gap={32} reverse>
           {clients.map((client) => (
             <LogoCard key={`${client.src}-2`} {...client} />
           ))}
