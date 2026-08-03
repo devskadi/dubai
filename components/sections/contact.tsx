@@ -31,61 +31,56 @@ export default function Contact() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      // the SECTION itself is now the positioning context (`relative`)
-      // for the form — the overlay below spans `inset-0` on THIS
-      // element, i.e. the section's full height (image + contact info
-      // + footer combined), not just the image block.
-      className="relative flex flex-col"
+      className="relative flex flex-col h-screen"
     >
       <div className="relative">
-        <div className="relative overflow-hidden rounded-3xl">
+        <div className="relative overflow-hidden rounded-b-3xl">
           <img
             src="/images/about_placeholder.webp"
             alt="Contact SPM Dubai"
-            className="h-80 w-full object-cover"
+            className="h-[40vh] w-full object-cover"
           />
           <div className="absolute inset-0 bg-primary-800/60" />
 
           <motion.div
             variants={item}
-            className="absolute left-8 bottom-8 flex flex-col gap-3 max-w-md"
+            className="absolute left-16 bottom-16 flex flex-col gap-4 max-w-2xl"
           >
-            <h2 className="font-title text-4xl font-bold text-light-100">
+            <h2 className="font-title text-5xl font-bold text-light-100">
               Reach Out to Us
             </h2>
-            <p className="font-text text-light-100/80">
-              Need support, have a query, or looking to discuss a recovery
-              mandate? Let&apos;s talk.
+            <p className="font-text text-xl text-light-200">
+              Need support, have a query, or looking to discuss a recovery mandate? Let&apos;s talk.
             </p>
           </motion.div>
         </div>
       </div>
 
       {/* Contact Information */}
-      <motion.div variants={item} className="flex flex-col gap-6 px-20 pt-16">
+      <motion.div variants={item} className="flex flex-col gap-6 px-20 pt-16 max-w-[60vw]">
         <div>
-          <h3 className="font-title text-3xl font-bold text-primary-800">
+          <h2 className="font-title text-5xl leading-tight text0-dark-900">
             Contact Information
-          </h3>
-          <p className="mt-2 font-text text-dark-700">
+          </h2>
+          <p className="mt-2 font-text text-dark-800 text-base leading-relaxed">
             We&apos;re based in Dubai and serve clients across the GCC,
             Philippines, and Singapore.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Phone className="h-5 w-5 text-primary-800" />
-          <span className="font-text text-dark-900">123-456-7890</span>
+        <div className="flex items-center gap-4">
+          <Phone className="h-6 w-6 text-accent-500" />
+          <span className="font-text text-base text-dark-900">123-456-7890</span>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Mail className="h-5 w-5 text-primary-800" />
-          <span className="font-text text-dark-900">info@mysite.com</span>
+        <div className="flex items-center gap-4">
+          <Mail className="h-6 w-6 text-accent-500" />
+          <span className="font-text text-base text-dark-900">info@mysite.com</span>
         </div>
 
-        <div className="flex items-center gap-3">
-          <MapPin className="h-5 w-5 text-primary-800" />
-          <span className="font-text text-dark-900">
+        <div className="flex items-center gap-4">
+          <MapPin className="h-6 w-6 text-accent-500" />
+          <span className="font-text text-base text-dark-900">
             104, Aspin Commercial Tower, Sheikh Zayed Road, Dubai.
           </span>
         </div>
