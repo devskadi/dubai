@@ -82,55 +82,67 @@ export default function About() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-100 px-32 py-24"
+      className="bg-light-100 px-40 py-24"
     >
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+      <div className="grid gap-10 grid-cols-2">
+
         {/* Left column */}
-        <motion.div variants={item} className="flex flex-col gap-6">
-          <div className="flex gap-6">
-            <div className="w-1 shrink-0 rounded-full bg-accent-500" />
-            <div className="flex flex-col gap-2">
-              <p className="font-text text-sm font-semibold uppercase tracking-widest text-primary-700">
-                About Us
-              </p>
-              <h2 className="font-title text-5xl font-bold leading-tight text-primary-800">
-                What makes us the right partner
-              </h2>
-            </div>
+        <motion.div variants={item} className="flex flex-col gap-10">
+
+          {/* Heading Box */}
+          <div
+            className="flex flex-col border-l-8 pl-10 py-6"
+            style={{
+              borderImage:
+                "linear-gradient(to bottom, var(--color-accent-600), var(--color-accent-500), var(--color-primary-700), var(--color-primary-800)) 1",
+            }}
+          >
+            <p className="font-heading text-2xl uppercase font-semibold tracking-wider text-dark-800">
+              About Us
+            </p>
+            <h2 className="font-title text-5xl font-bold leading-tight">
+              <span className="text-dark-900">What makes us the </span>
+              <span className="text-accent-500 ">right partner</span>
+            </h2>
           </div>
 
+          {/* Bigger Image Box*/}
           <div className="overflow-hidden rounded-3xl">
             <img
               src="/images/about_placeholder.webp"
               alt="Our team at work"
-              className="h-[400px] w-full object-cover"
+              className="h-full w-full object-cover"
             />
           </div>
         </motion.div>
 
+
         {/* Right column */}
-        <motion.div variants={container} className="flex flex-col gap-8">
+        <motion.div variants={container} className="flex flex-col gap-10">
+
           {/* Top: two cards side by side */}
-          <motion.div variants={item} className="grid grid-cols-2 gap-6">
+          <motion.div variants={item} className="grid grid-cols-2 gap-6 items-stretch">
+            {/* Smaller Image Box */}
             <div className="relative overflow-hidden rounded-3xl">
               <img
                 src="/images/about_placeholder.webp"
                 alt="Recovery operations"
-                className="h-52 w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
-              <span className="absolute left-3 top-3 rounded-full bg-dark-900/80 px-3 py-1 font-text text-xs text-light-100">
-                GCC
+              <span className="absolute right-3 top-3 rounded-full bg-dark-800/70 px-2 py-1 font-text text-xs text-light-100">
+                Text Here
               </span>
             </div>
 
-            <div className="flex h-52 flex-col justify-between rounded-3xl bg-light-200 p-6">
+            {/* Ticker Box */}
+            <div className="flex flex-col justify-between gap-12 rounded-3xl p-6">
               <div className="flex items-baseline">
                 <span className="font-digits text-5xl font-bold text-accent-500">
                   +
                 </span>
                 <NumberTicker
                   value={3000}
-                  startValue={2900}
+                  startValue={1800}
                   className="font-digits text-5xl font-bold tracking-tight text-accent-500"
                 />
               </div>
@@ -140,9 +152,9 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Paragraph with scroll-linked word color */}
+          {/* Paragraph with scroll-linked effects*/}
           <div ref={paragraphRef}>
-            <p className="font-text text-xl leading-relaxed">
+            <p className="font-text text-2xl leading-relaxed">
               {words.map((word, i) => {
                 const start = i * step;
                 const end = start + fadeWidth;
@@ -155,8 +167,8 @@ export default function About() {
             </p>
           </div>
 
-          {/* Language showcase, replacing the stat row */}
-          <motion.div variants={container} className="flex flex-col gap-6">
+          {/* Language showcase*/}
+          <motion.div variants={container} className="flex flex-col items-center gap-6">
             <motion.p
               variants={item}
               className="font-highlight italic text-2xl text-primary-700"
@@ -174,7 +186,7 @@ export default function About() {
                   <span className={`${lang.font} text-3xl text-accent-500`}>
                     {lang.word}
                   </span>
-                  <span className="font-text text-xs text-dark-800">
+                  <span className="font-text text-base text-dark-800">
                     {lang.label}
                   </span>
                 </motion.div>

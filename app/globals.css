@@ -8,7 +8,7 @@
   /* Mono */
   --color-light-100: #ffffff;
   --color-light-200: #F7FAFC;
-  --color-light-300: #E8EDF2;
+  --color-light-300: #e8edf2;
   --color-dark-900: #202020;
   --color-dark-800: #54555A;
   --color-dark-700: #BDC5D0;
@@ -16,6 +16,7 @@
   /* Branding */
   --color-primary-800: #003A6C;
   --color-primary-700: #0b3969;
+  --color-primary-600: #11569e;
   --color-accent-600: #b8860b;
   --color-accent-500: #DFB85F;
 
