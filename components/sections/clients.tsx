@@ -53,7 +53,7 @@ export default function Clients() {
   }, []);
 
   return (
-    <section className="bg-light-200 px-40 pb-8 flex pt-20 flex-col gap-10">
+    <section className="bg-light-200 pb-8 flex pt-20 flex-col gap-10">
     
       {/* Section heading */}
       <div className="flex flex-col gap-2">
