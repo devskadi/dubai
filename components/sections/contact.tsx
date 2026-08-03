@@ -2,6 +2,8 @@
 
 import { motion, type Variants } from "motion/react";
 import { Phone, Mail, MapPin, Send } from "lucide-react";
+import { FaFacebookF, FaLinkedinIn, FaTiktok } from "react-icons/fa6";
+import { SiGmail } from "react-icons/si";
 
 const container: Variants = {
   hidden: { opacity: 0 },
@@ -17,10 +19,10 @@ const item: Variants = {
 };
 
 const socials = [
-  { label: "LinkedIn", href: "#" },
-  { label: "YouTube", href: "#" },
-  { label: "Instagram", href: "#" },
-  { label: "Facebook", href: "#" },
+  { label: "Facebook", href: "#", icon: FaFacebookF },
+  { label: "LinkedIn", href: "#", icon: FaLinkedinIn },
+  { label: "Gmail", href: "#", icon: SiGmail },
+  { label: "TikTok", href: "#", icon: FaTiktok },
 ];
 
 export default function Contact() {
@@ -57,9 +59,9 @@ export default function Contact() {
       </div>
 
       {/* Contact Information */}
-      <motion.div variants={item} className="flex flex-col gap-6 px-20 pt-16 max-w-[60vw]">
+      <motion.div variants={item} className="flex flex-col gap-8 px-20 pt-16 max-w-[60vw]">
         <div>
-          <h2 className="font-title text-5xl leading-tight text0-dark-900">
+          <h2 className="font-title text-5xl leading-none text-dark-900">
             Contact Information
           </h2>
           <p className="mt-2 font-text text-dark-800 text-base leading-relaxed">
@@ -68,59 +70,64 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Phone className="h-6 w-6 text-accent-500" />
-          <span className="font-text text-base text-dark-900">123-456-7890</span>
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-4">
+            <Phone className="h-6 w-6 text-accent-500" />
+            <span className="font-text text-base text-dark-900">123-456-7890</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <Mail className="h-6 w-6 text-accent-500" />
+            <span className="font-text text-base text-dark-900">info@mysite.com</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <MapPin className="h-6 w-6 text-accent-500" />
+            <span className="font-text text-base text-dark-900">
+              104, Aspin Commercial Tower, Sheikh Zayed Road, Dubai.
+            </span>
+          </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Mail className="h-6 w-6 text-accent-500" />
-          <span className="font-text text-base text-dark-900">info@mysite.com</span>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <MapPin className="h-6 w-6 text-accent-500" />
-          <span className="font-text text-base text-dark-900">
-            104, Aspin Commercial Tower, Sheikh Zayed Road, Dubai.
-          </span>
-        </div>
-
-        <div className="flex gap-3 pt-2">
+        <div className="flex gap-6 pt-2">
           {socials.map((social) => (
             <a
               key={social.label}
               href={social.href}
               aria-label={social.label}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-800 text-light-100 transition-colors hover:bg-accent-500"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-800 text-light-100 transition-color"
             >
-              <span className="font-text text-xs">{social.label[0]}</span>
+              <social.icon className="h-6 w-6" />
             </a>
           ))}
         </div>
       </motion.div>
 
       {/* Footer copyright */}
-      <motion.p
-        variants={item}
-        className="border-t border-light-300 px-20 pt-6 pb-10 text-center font-text text-sm text-dark-700"
-      >
-        © 2026 by S.P. Madrid Dubai
-      </motion.p>
+      <div className="border-t border-dark-700 py-6 text-center font-text text-sm text-dark-700 mx-20 mt-10 flex justify-between">
+        <p className="font-text text-sm text-dark-800">
+          © 2026 S.P. Madrid Dubai. All rights reserved. Licensed in UAE.
+        </p>
+        <div className="flex gap-4">
+          <a href="/privacy-policy" className="text-dark-800 hover:underline">
+            Privacy Policy
+          </a>
+          <a href="/terms-of-service" className="ml-4 text-dark-800 hover:underline">
+            Terms of Service
+          </a>
+        </div>
+      </div>
 
-      {/* FORM — absolute, inset-0 relative to the SECTION (not the
-          image block above). flex + items-center centers it across the
-          section's FULL height (image + contact info + footer), which
-          is what "vertically centered in the total height of the
-          contact section" means. justify-end keeps it pinned right. */}
+      {/* FORM */}
       <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-end px-20">
         <motion.div
           variants={item}
-          className="pointer-events-auto w-full max-w-md rounded-3xl bg-light-100 p-8 shadow-2xl"
+          className="pointer-events-auto w-full max-w-[35vw] rounded-3xl bg-light-100 p-8 shadow-2xl"
         >
           <h3 className="font-title text-2xl font-bold text-primary-800">
             Send us a message
           </h3>
-          <p className="mt-2 font-text text-sm text-dark-700">
+          <p className="mt-2 font-text text-sm text-dark-800">
             Get in touch with us for any inquiries or support. We&apos;re
             here to assist you.
           </p>
@@ -173,7 +180,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="mt-2 flex items-center justify-center gap-2 rounded-full bg-primary-800 py-3 font-text text-sm font-semibold text-light-100 transition-colors hover:bg-primary-700"
+              className="mt-2 flex items-center justify-center gap-2 rounded-full bg-primary-800 py-3 font-title tracking-widest text-sm text-light-100 transition-colors hover:bg-primary-700"
             >
               Send Message
               <Send className="h-4 w-4" />
