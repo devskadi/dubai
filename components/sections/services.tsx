@@ -1,13 +1,55 @@
 "use client";
 
-import { motion, useScroll, useTransform, type Variants } from "motion/react";
-import { useRef } from "react";
+import { motion, type Variants } from "motion/react";
+import { Pencil, Clock, MapPin, Phone, ArrowRight } from "lucide-react";
+
+const infoCards = [
+  {
+    icon: Pencil,
+    title: "Drop us a line",
+    description:
+      "Check out cool new spots, try out yummy local foods, and dive into different cultures.",
+  },
+  {
+    icon: Clock,
+    title: "Business hours",
+    description:
+      "Check out cool new spots, try out yummy local foods, and dive into different cultures.",
+  },
+  {
+    icon: MapPin,
+    title: "Visit our office",
+    description:
+      "Check out cool new spots, try out yummy local foods, and dive into different cultures.",
+  },
+];
+
+const offices = [
+  {
+    city: "Dubai",
+    address: "Level 14, Emaar Square, Dubai, UAE",
+    phone: "+971 4 555 0123",
+    image: "/images/office_placeholder_1.webp",
+  },
+  {
+    city: "Manila",
+    address: "32nd Floor, Ayala Tower, Makati, PH",
+    phone: "+63 2 8555 0123",
+    image: "/images/office_placeholder_2.webp",
+  },
+  {
+    city: "Riyadh",
+    address: "King Fahd Road, Riyadh, KSA",
+    phone: "+966 11 555 0123",
+    image: "/images/office_placeholder_3.webp",
+  },
+];
 
 const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
   },
 };
 
@@ -16,141 +58,92 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-const services = [
-  {
-    number: "01",
-    title: "Secured & Unsecured Products",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-  },
-  {
-    number: "02",
-    title: "Audit Recovery",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-  },
-  {
-    number: "03",
-    title: "Local & International Accounts",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-  },
-];
-
-export default function Services() {
-  const imageRef = useRef<HTMLDivElement>(null);
-  const servicesRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: imageRef,
-    offset: ["start end", "end start"],
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 1], [1.35, 0.95]);
-
+export default function Contact() {
   return (
     <motion.section
-      id="services"
+      id="contact"
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-100 px-32 py-20 flex flex-col gap-24"
+      className="bg-light-100 py-24"
     >
-      <motion.div variants={item} className="flex flex-col gap-4">
-        <p className="font-heading text-xl text-primary-700 uppercase">
-          Operational Trust
-        </p>
-
-        <div className="flex gap-32">
-          <h2 className="font-title text-5xl font-bold text-accent-500 w-4/6">
-            Trusted to run the front line of our business
-          </h2>
-          <p className="font-text text-xl text-dark-800 w-2/6">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim ad minim veniam
+      {/* Top: heading + info cards */}
+      <div className="grid grid-cols-2 gap-16 px-40 pb-20">
+        {/* Left: heading */}
+        <motion.div variants={item} className="flex flex-col gap-6">
+          <p className="font-heading text-sm font-semibold uppercase tracking-widest text-accent-500">
+            Contact
           </p>
-        </div>
-      </motion.div>
-
-      <div className="flex w-full gap-32 items-stretch">
-        <motion.div
-          ref={imageRef}
-          variants={item}
-          className="relative overflow-hidden rounded-2xl w-3/7 self-stretch"
-        >
-          <motion.img
-            src="/images/about_placeholder.webp"
-            alt="About Us"
-            style={{ scale }}
-            className="absolute inset-0 block w-full h-full object-cover"
-          />
+          <h2 className="font-title text-5xl font-bold leading-tight text-dark-900">
+            Get in touch with us for more information
+          </h2>
+          <p className="font-text text-lg leading-relaxed text-dark-700">
+            Contact us for inquiries or support we&apos;re here to help and
+            ensure an exceptional experience.
+          </p>
+          <a
+            href="#"
+            className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-dark-900 px-6 py-3 font-heading text-sm font-semibold text-light-100 transition-transform duration-300 hover:scale-105"
+          >
+            See All Blogs
+            <ArrowRight className="h-4 w-4" />
+          </a>
         </motion.div>
 
-        <motion.div ref={servicesRef} variants={container} className="flex flex-col w-4/7 gap-12">
-          {services.map((service) => (
-            <motion.div
-              key={service.number}
-              variants={item}
-              className="flex gap-12 border-b border-accent-500 last:border-b-0 pb-8 items-center"
-            >
-              <span className="font-heading text-base text-primary-700 border border-primary-700 rounded-full h-14 w-14 flex items-center justify-center shrink-0">
-                {service.number}
-              </span>
-              <div className="flex flex-col gap-2">
-                <h3 className="font-title w-full text-3xl text-primary-700">
-                  {service.title}
+        {/* Right: 3 info cards */}
+        <motion.div variants={container} className="grid grid-cols-3 gap-8">
+          {infoCards.map((card) => (
+            <motion.div key={card.title} variants={item} className="flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <h3 className="font-title text-lg font-bold text-dark-900">
+                  {card.title}
                 </h3>
-                <p className="font-text w-full text-base text-dark-800">
-                  {service.description}
-                </p>
+                <card.icon className="h-5 w-5 text-dark-700" />
               </div>
+              <p className="font-text text-sm leading-relaxed text-dark-700">
+                {card.description}
+              </p>
             </motion.div>
           ))}
-
-          <motion.a
-            variants={item}
-            href="/about"
-            className="group mt-2 inline-flex w-fit items-center gap-2 self-end font-title text-2xl uppercase text-dark-900"
-          >
-            <span className="relative block h-6 overflow-hidden">
-              <span className="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-6">
-                <span className="h-6 leading-6">About us</span>
-                <span className="h-6 leading-6">About us</span>
-              </span>
-            </span>
-            <span className="relative block h-6 overflow-hidden">
-              <span className="flex flex-col transition-transform duration-500 ease-out group-hover:-translate-y-6">
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  className="h-6 w-6 stroke-current"
-                  fill="none"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 17L17 7" />
-                  <path d="M9 7h8v8" />
-                </svg>
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  className="h-6 w-6 stroke-current"
-                  fill="none"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 17L17 7" />
-                  <path d="M9 7h8v8" />
-                </svg>
-              </span>
-            </span>
-          </motion.a>
         </motion.div>
       </div>
+
+      {/* Bottom: edge-to-edge office image row */}
+      <motion.div variants={container} className="grid grid-cols-3">
+        {offices.map((office) => (
+          <motion.div
+            key={office.city}
+            variants={item}
+            className="relative flex h-96 flex-col justify-end p-10"
+          >
+            <img
+              src={office.image}
+              alt={office.city}
+              className="absolute inset-0 h-full w-full object-cover grayscale"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/20 to-transparent" />
+
+            <div className="relative flex flex-col gap-3">
+              <h3 className="font-title text-3xl font-bold text-light-100">
+                {office.city}
+              </h3>
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 flex-shrink-0 text-light-100" />
+                <span className="font-text text-sm text-light-100">
+                  {office.address}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="h-4 w-4 flex-shrink-0 text-light-100" />
+                <span className="font-text text-sm text-light-100">
+                  {office.phone}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
     </motion.section>
   );
 }
