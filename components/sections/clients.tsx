@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { InfiniteSlider } from "@/components/motion-primitives/infinite-slider";
 
 const clients = [
@@ -15,6 +16,15 @@ const clients = [
   { name: "PSBank", src: "/clients/psbank.png" },
   { name: "Eastwest", src: "/clients/eastwest.png" },
 ];
+
+function shuffle<T>(arr: T[]): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
 
 function LogoCard({ name, src }: { name: string; src: string }) {
   return (
@@ -32,10 +42,20 @@ function LogoCard({ name, src }: { name: string; src: string }) {
     </div>
   );
 }
-
+{/* Shuffle the client logos*/}
 export default function Clients() {
+  const [rowOne, setRowOne] = useState(clients);
+  const [rowTwo, setRowTwo] = useState(clients);
+
+  useEffect(() => {
+    setRowOne(shuffle(clients));
+    setRowTwo(shuffle(clients));
+  }, []);
+
   return (
     <section className="bg-light-200 px-40 pb-8 flex pt-20 flex-col gap-10">
+    
+      {/* Section heading */}
       <div className="flex flex-col gap-2">
         <p className="text-center font-title font-semibold uppercase text-base tracking-widest text-accent-600">
           Trusted Partner
@@ -45,15 +65,16 @@ export default function Clients() {
         </p>
       </div>
 
+      {/* Scrollers */}
       <div className="flex flex-col gap-6 w-full overflow-hidden">
         <InfiniteSlider speed={40} speedOnHover={20} gap={32}>
-          {clients.map((client) => (
+          {rowOne.map((client) => (
             <LogoCard key={client.src} {...client} />
           ))}
         </InfiniteSlider>
 
         <InfiniteSlider speed={40} speedOnHover={20} gap={32} reverse>
-          {clients.map((client) => (
+          {rowTwo.map((client) => (
             <LogoCard key={`${client.src}-2`} {...client} />
           ))}
         </InfiniteSlider>
