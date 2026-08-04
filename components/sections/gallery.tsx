@@ -7,40 +7,33 @@ const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.18, delayChildren: 0.1 },
   },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 56, scale: 0.96 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
-const rowOneImages = [
-  { label: "Reception", image: "/images/ph-office-1.png" },
-  { label: "Operations floor", image: "/images/ph-office-2.jpeg" },
-  { label: "Meeting pods", image: "/images/ph-office-3.jpeg" },
-  { label: "Team lounge", image: "/images/ph-office-4.jpeg" },
-  { label: "Reception", image: "/images/ph-office-1.png" },
-  { label: "Operations floor", image: "/images/ph-office-2.jpeg" },
-  { label: "Meeting pods", image: "/images/ph-office-3.jpeg" },
-  { label: "Team lounge", image: "/images/ph-office-4.jpeg" },
+const facilityImages = [
+  "/images/ph-office-1.png",
+  "/images/ph-office-2.jpeg",
+  "/images/ph-office-3.jpeg",
+  "/images/ph-office-4.jpeg",
 ];
 
-const rowTwoImages = [
-  { label: "Secure data room", image: "/images/ph-office-4.jpeg" },
-  { label: "Team lounge", image: "/images/ph-office-3.jpeg" },
-  { label: "Meeting pods", image: "/images/ph-office-2.jpeg" },
-  { label: "Reception", image: "/images/ph-office-1.png" },
-  { label: "Secure data room", image: "/images/ph-office-4.jpeg" },
-  { label: "Team lounge", image: "/images/ph-office-3.jpeg" },
-  { label: "Meeting pods", image: "/images/ph-office-2.jpeg" },
-  { label: "Reception", image: "/images/ph-office-1.png" },
-];
+const rowOneImages = [...facilityImages, ...facilityImages];
+const rowTwoImages = [...facilityImages.slice(2), ...facilityImages.slice(0, 2), ...facilityImages];
 
-function FacilityCard({ image }: { label: string; image: string }) {
+function FacilityCard({ image }: { image: string }) {
   return (
-    <div className="group relative aspect-6/4 w-64 shrink-0 overflow-hidden rounded-3xl">
+    <div className="group relative aspect-6/4 w-48 shrink-0 overflow-hidden rounded-2xl sm:w-56 lg:w-64 lg:rounded-3xl">
       <img
         src={image}
         alt=""
@@ -58,37 +51,41 @@ export default function Gallery() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-100 flex flex-col gap-10 py-20"
+      className="flex flex-col gap-8 bg-light-100 py-16 sm:gap-10 sm:py-20"
     >
-      <motion.div variants={item} className="flex flex-col gap-4 px-32 pt-20 pb-8">
-        <p className="relative inline-block font-heading text-xl text-dark-700 uppercase tracking-widest">
+      <motion.div
+        variants={item}
+        className="flex flex-col gap-3 px-5 sm:gap-4 sm:px-10 lg:px-32"
+      >
+        <p className="relative inline-block font-heading text-base uppercase tracking-widest text-dark-700 sm:text-lg lg:text-xl">
           Our Spaces
         </p>
-        <div className="flex items-center max-w-4xl">
-          <h2 className="font-title text-5xl leading-tight">
-            <span className="text-primary-800">Inside the facilities behind </span>
-            <span className="text-accent-500">every recovery</span>
-          </h2>
-        </div>
+        <h2 className="max-w-4xl font-title text-3xl leading-tight sm:text-4xl lg:text-5xl">
+          <span className="text-primary-800">Inside the facilities behind </span>
+          <span className="text-accent-500">every recovery</span>
+        </h2>
       </motion.div>
 
       {/* Tickers with faint edge fade */}
-      <div className="relative flex flex-col gap-8 w-full overflow-hidden">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-linear-to-r from-light-100 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-linear-to-l from-light-100 to-transparent" />
+      <motion.div
+        variants={item}
+        className="relative flex w-full flex-col gap-6 overflow-hidden sm:gap-8"
+      >
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-linear-to-r from-light-100 to-transparent sm:w-24 lg:w-32" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-linear-to-l from-light-100 to-transparent sm:w-24 lg:w-32" />
 
-        <InfiniteSlider speed={30} speedOnHover={12} gap={24}>
-          {rowOneImages.map((facility, i) => (
-            <FacilityCard key={`${facility.label}-${i}`} {...facility} />
+        <InfiniteSlider speed={30} speedOnHover={12} gap={16} className="gap-4 sm:gap-6">
+          {rowOneImages.map((image, i) => (
+            <FacilityCard key={`row1-${i}`} image={image} />
           ))}
         </InfiniteSlider>
 
-        <InfiniteSlider speed={30} speedOnHover={12} gap={24} reverse>
-          {rowTwoImages.map((facility, i) => (
-            <FacilityCard key={`${facility.label}-${i}-2`} {...facility} />
+        <InfiniteSlider speed={30} speedOnHover={12} gap={16} reverse className="gap-4 sm:gap-6">
+          {rowTwoImages.map((image, i) => (
+            <FacilityCard key={`row2-${i}`} image={image} />
           ))}
         </InfiniteSlider>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }
