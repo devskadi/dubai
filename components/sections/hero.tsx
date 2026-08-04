@@ -32,7 +32,7 @@ const languages = [
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-dark-900 px-5 sm:px-6">
+    <section id="home" className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-dark-900 px-5 sm:px-6">
       <video
         autoPlay
         muted

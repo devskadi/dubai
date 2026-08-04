@@ -11,9 +11,9 @@ const navVariants: Variants = {
 };
 
 const links = [
-  { label: "HOME", href: "#services" },
+  { label: "HOME", href: "#home" },
   { label: "ABOUT", href: "#about" },
-  { label: "SERVICES", href: "#blog" },
+  { label: "SERVICES", href: "#services" },
   { label: "CONTACT", href: "#contact" },
 ];
 
@@ -46,6 +46,22 @@ export default function Nav() {
 
   const filled = scrolled || !isDesktop || mobileOpen;
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    const headerOffset = isDesktop ? 80 : 64; // matches h-20 / h-16
+    const top =
+      target.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+    window.scrollTo({ top, behavior: "smooth" });
+    setMobileOpen(false); // no-op on desktop, closes menu on mobile
+  };
+
   return (
     <motion.header
       variants={navVariants}
@@ -74,6 +90,7 @@ export default function Nav() {
             <a
               key={link.href}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="group relative w-fit font-heading text-sm font-medium text-light-100"
             >
               {link.label}
@@ -111,7 +128,7 @@ export default function Nav() {
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: i * 0.06, ease: "easeOut" }}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="font-heading text-base font-medium text-light-100"
                 >
                   {link.label}

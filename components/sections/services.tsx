@@ -58,6 +58,7 @@ const services = [
 export default function Services() {
   return (
     <motion.section
+      id="services"
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
