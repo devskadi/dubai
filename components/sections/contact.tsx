@@ -348,12 +348,6 @@ export default function Contact() {
                       )}
                     </AnimatePresence>
                   </motion.button>
-
-                  {status === "error" && (
-                    <p className="font-text text-sm text-red-600" role="alert">
-                      Something went wrong. Please try again.
-                    </p>
-                  )}
                 </motion.form>
               </motion.div>
             )}
