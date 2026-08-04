@@ -9,6 +9,7 @@ import {
   Playfair, Geist } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/nav";
+import Footer from "@/components/footer";
 import SplashScreen from "@/components/splash-screen";
 import { cn } from "@/lib/utils";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
@@ -77,6 +78,7 @@ export default function RootLayout({
         <Nav />
         {children}
         <SmoothCursor />
+        <Footer />
       </body>
     </html>
   );
