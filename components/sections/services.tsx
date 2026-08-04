@@ -86,14 +86,14 @@ export default function Contact() {
         </motion.div>
 
         {/* Right: 3 info cards */}
-        <motion.div variants={container} className="grid grid-cols-3 gap-8 items-start pr-32 pl-8">
+        <motion.div variants={container} className="grid grid-cols-3 gap-12 items-stretch pr-32 pl-8">
           {infoCards.map((card) => (
             <motion.div key={card.title} variants={item} className="flex flex-col gap-4">
-              <div className="flex h-20 items-center gap-3">
+              <div className="flex min-h-20 items-center justify-between">
                 <h3 className="font-title text-2xl font-bold text-dark-900">
                   {card.title}
                 </h3>
-                <card.icon className="h-5 w-5 shrink-0 text-accent-500" />
+                 <card.icon className="h-5 w-5 shrink-0 text-accent-500" />
               </div>
               <p className="font-text text-base leading-relaxed text-dark-800">
                 {card.description}
