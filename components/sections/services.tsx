@@ -66,7 +66,7 @@ export default function Services() {
       className="bg-light-200 px-5 py-16 sm:px-10 sm:py-20 lg:px-32"
     >
       <motion.div variants={item} className="max-w-4xl">
-        <span className="relative inline-block font-heading text-base text-accent-500 uppercase tracking-widest sm:text-lg lg:text-xl">
+        <span className="relative inline-block font-heading text-base text-dark-700 uppercase tracking-widest sm:text-lg lg:text-xl">
           Capabilities
         </span>
         <h2 className="mt-4 font-title text-3xl leading-tight text-primary-800 sm:mt-6 sm:text-5xl lg:text-7xl">

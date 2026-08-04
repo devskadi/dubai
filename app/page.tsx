@@ -11,15 +11,14 @@ import Services from "@/components/sections/services";
 export default function Home() {
   return (
     <main>
-      {/* Spacer reserves one viewport-height of scroll room while Hero
-          is pinned to the actual viewport beneath everything else. */}
-      <div className="relative h-screen">
+      {/* Spacer reserves for the animation. */}
+      <div id="home" className="relative h-screen">
         <div className="fixed inset-0 z-0">
           <Hero />
         </div>
       </div>
 
-      {/* Everything below scrolls over the pinned Hero, covering it. */}
+      {/* Everything below scrolls over the pinned Hero. */}
       <div className="relative z-10">
         <Clients />
         <Opening />
