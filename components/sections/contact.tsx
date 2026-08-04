@@ -36,11 +36,11 @@ export default function Contact() {
       className="relative flex flex-col h-screen"
     >
       <div className="relative">
-        <div className="relative overflow-hidden rounded-b-3xl">
+        <div className="relative overflow-hidden">
           <img
             src="/images/about_placeholder.webp"
             alt="Contact SPM Dubai"
-            className="h-[40vh] w-full object-cover"
+            className="h-[45vh] w-full object-cover"
           />
           <div className="absolute inset-0 bg-primary-800/60" />
 
@@ -59,9 +59,9 @@ export default function Contact() {
       </div>
 
       {/* Contact Information */}
-      <motion.div variants={item} className="flex flex-col gap-8 px-20 pt-16 max-w-[60vw]">
+      <motion.div variants={item} className="flex flex-col gap-10 px-16 pt-16 max-w-[60vw]">
         <div>
-          <h2 className="font-title text-5xl leading-none text-dark-900">
+          <h2 className="font-title text-5xl leading-none text-primary-800">
             Contact Information
           </h2>
           <p className="mt-2 font-text text-dark-800 text-base leading-relaxed">
@@ -89,13 +89,13 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="flex gap-6 pt-2">
+        <div className="flex gap-4 pt-2">
           {socials.map((social) => (
             <a
               key={social.label}
               href={social.href}
               aria-label={social.label}
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-800 text-light-100 transition-color"
+              className="flex h-14 w-14 items-center justify-center text-primary-700"
             >
               <social.icon className="h-6 w-6" />
             </a>
@@ -103,23 +103,8 @@ export default function Contact() {
         </div>
       </motion.div>
 
-      {/* Footer copyright */}
-      <div className="border-t border-dark-700 py-6 text-center font-text text-sm text-dark-700 mx-20 mt-10 flex justify-between">
-        <p className="font-text text-sm text-dark-800">
-          © 2026 S.P. Madrid Dubai. All rights reserved. Licensed in UAE.
-        </p>
-        <div className="flex gap-4">
-          <a href="/privacy-policy" className="text-dark-800 hover:underline">
-            Privacy Policy
-          </a>
-          <a href="/terms-of-service" className="ml-4 text-dark-800 hover:underline">
-            Terms of Service
-          </a>
-        </div>
-      </div>
-
       {/* FORM */}
-      <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-end px-20">
+      <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-end px-16">
         <motion.div
           variants={item}
           className="pointer-events-auto w-full max-w-[35vw] rounded-3xl bg-light-100 p-8 shadow-2xl"
