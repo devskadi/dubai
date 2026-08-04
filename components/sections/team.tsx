@@ -79,11 +79,11 @@ export default function Team() {
       className="bg-light-100 px-48 py-20 flex flex-col gap-24"
     >
       <motion.div variants={item} className="flex flex-col gap-4">
-        <p className="relative inline-block font-heading text-xl text-dark-900 uppercase tracking-widest">
+        <p className="relative inline-block font-heading text-xl text-dark-700 uppercase tracking-widest">
           The frontline
         </p>
         
-        <div className="flex gap-28 items-center">
+        <div className="flex justify-between items-center">
           <h2 className="font-title text-5xl leading-tight">
             <span className="text-primary-800">Meet the team behind the </span>
             <span className="text-accent-500">recovery</span>

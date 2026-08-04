@@ -29,7 +29,7 @@ const offices = [
     city: "Dubai",
     address: "104, Aspin Commercial Tower, Sheikh Zayed Road, Dubai.",
     phone: "+639876543210",
-    image: "/images/gallery-3.jpeg",
+    image: "/images/dubai-office-1.jpeg",
   },
   {
     city: "Manila",

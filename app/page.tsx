@@ -1,7 +1,6 @@
 import Services from "@/components/sections/services";
 import Clients from "@/components/sections/clients";
 import Gallery from "@/components/sections/gallery";
-import GlobalPresence from "@/components/sections/global-presence";
 import Hero from "@/components/sections/hero";
 import About from "@/components/sections/about";
 import Team from "@/components/sections/team";
@@ -16,6 +15,7 @@ export default function Home() {
       <Opening />
       <About />
       <Services />
+      <Gallery />
       <Team />
       <Contact />
       {/* other sections go here */}

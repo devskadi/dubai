@@ -64,7 +64,7 @@ export default function About() {
         {/* Left column: heading + image */}
         <motion.div variants={item} className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <p className="relative inline-block font-heading text-xl text-dark-900 uppercase tracking-widest">
+            <p className="relative inline-block font-heading text-xl text-dark-700 uppercase tracking-widest">
               About S.P. Madrid
             </p>
             <h2 className="font-title text-5xl leading-tight">
