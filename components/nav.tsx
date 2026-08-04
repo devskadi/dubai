@@ -53,9 +53,7 @@ export default function Nav() {
       animate="show"
       className="fixed left-0 right-0 top-0 z-50 transition-colors duration-500"
       style={{
-        backgroundColor: filled
-          ? "color-mix(in srgb, var(--color-primary-800) 90%, transparent)"
-          : "transparent",
+        backgroundColor: filled ? "var(--color-primary-800)" : "transparent",
       }}
     >
       <div className="flex h-16 items-center justify-between px-5 sm:px-10 lg:h-20 lg:px-32">
@@ -103,11 +101,7 @@ export default function Nav() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden md:hidden"
-            style={{
-              backgroundColor:
-                "color-mix(in srgb, var(--color-primary-800) 80%, transparent)",
-            }}
+            className="overflow-hidden bg-primary-800 md:hidden"
           >
             <div className="flex flex-col gap-6 px-5 pb-8 pt-2 sm:px-10">
               {links.map((link, i) => (
