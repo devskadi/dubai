@@ -29,7 +29,7 @@ export default function Footer() {
       whileInView="show"
       viewport={{ once: true, amount: 0.1 }}
       variants={container}
-      className="relative overflow-hidden bg-light-200"
+      className="relative overflow-hidden bg-light-300"
     >
       <div className="relative z-10 px-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 pt-8">

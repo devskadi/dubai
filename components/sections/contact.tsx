@@ -107,7 +107,7 @@ export default function Contact() {
     >
       <div className="relative">
         {/* Hero */}
-        <div className="relative h-[38vh] min-h-[280px] w-full overflow-hidden sm:h-[42vh] sm:min-h-[360px] lg:h-[45vh]">
+        <div className="relative h-[38vh] min-h-70 w-full overflow-hidden sm:h-[42vh] sm:min-h-90 lg:h-[45vh]">
           <Image
             src="/images/about_placeholder.webp"
             alt="Contact SPM Dubai"
