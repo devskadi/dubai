@@ -1,4 +1,4 @@
-import Services from "@/components/sections/services";
+import Bento from "@/components/sections/bento";
 import Clients from "@/components/sections/clients";
 import Gallery from "@/components/sections/gallery";
 import Hero from "@/components/sections/hero";
@@ -14,7 +14,7 @@ export default function Home() {
       <Clients />
       <Opening />
       <About />
-      <Services />
+      <Bento />
       <Gallery />
       <Team />
       <Contact />

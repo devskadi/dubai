@@ -58,7 +58,7 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
 
-export default function Contact() {
+export default function Bento() {
   return (
     <motion.section
       id="contact"
