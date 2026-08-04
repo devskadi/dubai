@@ -61,12 +61,12 @@ export default function TeamMobileCard({
         }}
         transition={{ duration: 0.6, ease: EASE }}
       >
-        <span className="inline-flex w-fit items-center rounded-full border border-light-100/30 bg-light-100/5 px-3 py-1 text-[10px] font-text font-medium uppercase tracking-[0.1em] text-light-100 backdrop-blur-sm">
+        <span className="inline-flex w-fit items-center rounded-full border border-light-100/30 bg-light-100/5 px-3 py-1 text-[10px] font-text font-medium uppercase tracking-widest text-light-100 backdrop-blur-sm">
           {badge}
         </span>
 
         <div className="flex flex-col gap-0.5">
-          <p className="font-text text-[10px] font-semibold uppercase tracking-[0.15em] text-light-100/60">
+          <p className="font-text text-[10px] font-semibold uppercase tracking-widest text-light-100/60">
             {role}
           </p>
           <h3 className="font-title text-2xl font-bold leading-tight text-light-100">
