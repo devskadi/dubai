@@ -79,15 +79,16 @@ export default function Team() {
       className="bg-light-100 px-48 py-20 flex flex-col gap-24"
     >
       <motion.div variants={item} className="flex flex-col gap-4">
-        <p className="font-heading text-xl text-primary-700 uppercase">
-          Frontline
+        <p className="relative inline-block font-heading text-xl text-dark-900 uppercase tracking-widest">
+          The frontline
         </p>
-
-        <div className="flex gap-32">
-          <h2 className="font-title text-5xl font-bold text-accent-500 w-4/6">
-            Meet the team behind the recovery
+        
+        <div className="flex gap-28 items-center">
+          <h2 className="font-title text-5xl leading-tight">
+            <span className="text-primary-800">Meet the team behind the </span>
+            <span className="text-accent-500">recovery</span>
           </h2>
-          <p className="font-text text-xl text-dark-800 w-2/6">
+          <p className="font-text text-base text-dark-800 max-w-2/6">
             Our dedicated team consists of experts across engineering and
             strategy, each committed to driving results and innovation.
           </p>

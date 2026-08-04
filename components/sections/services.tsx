@@ -66,21 +66,21 @@ export default function Contact() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-100"
+      className="bg-primary-800"
     >
       {/* Top: heading + info cards */}
       <div className="grid grid-cols-[1fr_2fr] py-20">
 
         {/* Left: heading */}
-        <motion.div variants={item} className="flex flex-col gap-4 pl-32 pr-8">
-         <p className="relative inline-block font-heading text-base text-accent-500 font-semibold uppercase tracking-widest">
+        <motion.div variants={item} className="flex flex-col gap-4 pl-32 pr-8 border-r border-light-100/20">
+         <p className="relative inline-block font-heading text-xl text-light-100 uppercase tracking-widest">
             Operational Trust
-            <span className="absolute -bottom-1 left-0 h-px w-[60%] bg-accent-500" />
           </p>
           <h2 className="font-title text-4xl leading-tight">
-            Data Privacy & Regulatory Compliance
+            <span className="text-light-100">Data Privacy & </span>
+            <span className="text-accent-500">Regulatory Compliance</span>
           </h2>
-          <p className="font-text text-base leading-relaxed text-dark-800">
+          <p className="font-text text-base leading-relaxed text-light-100/70">
             Comprehensive recovery solutions across secured and unsecured portfolios.
           </p>
         </motion.div>
@@ -90,12 +90,12 @@ export default function Contact() {
           {infoCards.map((card) => (
             <motion.div key={card.title} variants={item} className="flex flex-col gap-4">
               <div className="flex min-h-20 items-center justify-between">
-                <h3 className="font-title text-2xl font-bold text-dark-900">
+                <h3 className="font-title text-2xl font-bold text-light-100">
                   {card.title}
                 </h3>
                  <card.icon className="h-5 w-5 shrink-0 text-accent-500" />
               </div>
-              <p className="font-text text-base leading-relaxed text-dark-800">
+              <p className="font-text text-base leading-relaxed text-light-100/70">
                 {card.description}
               </p>
             </motion.div>
