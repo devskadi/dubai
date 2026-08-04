@@ -7,13 +7,18 @@ const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.18, delayChildren: 0.1 },
   },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 56, scale: 0.96 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
 const services = [
@@ -58,33 +63,33 @@ export default function Services() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-200 px-32 py-20"
+      className="bg-light-200 px-5 py-16 sm:px-10 sm:py-20 lg:px-32"
     >
       <motion.div variants={item} className="max-w-4xl">
-        <span className="relative inline-block font-heading text-xl text-accent-500 uppercase tracking-widest">
+        <span className="relative inline-block font-heading text-base text-accent-500 uppercase tracking-widest sm:text-lg lg:text-xl">
           Capabilities
         </span>
-        <h2 className="mt-6 font-title text-5xl leading-tight text-primary-800 lg:text-7xl">
+        <h2 className="mt-4 font-title text-3xl leading-tight text-primary-800 sm:mt-6 sm:text-5xl lg:text-7xl">
           Built for financial <span className="text-accent-500">institutions</span>
         </h2>
       </motion.div>
 
       <motion.div
         variants={container}
-        className="mt-20 grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2 xl:grid-cols-4"
+        className="mt-12 grid grid-cols-1 gap-x-10 gap-y-14 sm:mt-16 md:grid-cols-2 lg:mt-20 lg:gap-y-16 xl:grid-cols-4"
       >
         {services.map((service) => {
           const Icon = service.icon;
           return (
             <motion.article key={service.index} variants={item} className="group min-w-0">
               <div className="flex items-center justify-between border-b border-dark-900/10 pb-4">
-                <span className="font-title text-5xl font-extrabold text-dark-900/10 transition-colors duration-500 group-hover:text-accent-500/40">
+                <span className="font-title text-4xl font-extrabold text-dark-900/10 transition-colors duration-500 group-hover:text-accent-500/40 sm:text-5xl">
                   {service.index}
                 </span>
                 <Icon strokeWidth={1.2} className="h-6 w-6 shrink-0 text-accent-500" />
               </div>
 
-              <h3 className="mt-6 font-heading text-xl font-bold leading-snug text-dark-900">
+              <h3 className="mt-6 font-heading text-lg font-bold leading-snug text-dark-900 sm:text-xl">
                 {service.title}
               </h3>
               <p className="mt-3 font-text text-sm leading-relaxed text-dark-700">
