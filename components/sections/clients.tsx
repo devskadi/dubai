@@ -66,7 +66,10 @@ export default function Clients() {
       </div>
 
       {/* Scrollers */}
-      <div className="flex flex-col gap-6 w-full overflow-hidden">
+      <div className="relative flex flex-col gap-6 w-full overflow-hidden">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-linear-to-r from-light-200 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-linear-to-l from-light-200 to-transparent" />
+
         <InfiniteSlider speed={40} speedOnHover={20} gap={32}>
           {rowOne.map((client) => (
             <LogoCard key={client.src} {...client} />
