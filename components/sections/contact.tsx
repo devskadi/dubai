@@ -33,7 +33,7 @@ export default function Contact() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="relative flex flex-col h-screen"
+      className="relative flex flex-col bg-light-100"
     >
       <div className="relative">
         <div className="relative overflow-hidden">
@@ -89,7 +89,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="flex gap-4 pt-2">
+        <div className="flex gap-4">
           {socials.map((social) => (
             <a
               key={social.label}

@@ -38,18 +38,14 @@ const rowTwoImages = [
   { label: "Reception", image: "/images/ph-office-1.png" },
 ];
 
-function FacilityCard({ label, image }: { label: string; image: string }) {
+function FacilityCard({ image }: { label: string; image: string }) {
   return (
-    <div className="group relative aspect-4/3 w-64 shrink-0 overflow-hidden rounded-3xl">
+    <div className="group relative aspect-6/4 w-64 shrink-0 overflow-hidden rounded-3xl">
       <img
         src={image}
-        alt={label}
+        alt=""
         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
-      <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-dark-900/80 to-transparent" />
-      <span className="absolute bottom-6 left-6 font-heading text-xl font-semibold text-light-100">
-        {label}
-      </span>
     </div>
   );
 }
@@ -62,22 +58,17 @@ export default function Gallery() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-100 flex flex-col gap-10"
+      className="bg-light-100 flex flex-col gap-10 py-20"
     >
       <motion.div variants={item} className="flex flex-col gap-4 px-32 pt-20 pb-8">
         <p className="relative inline-block font-heading text-xl text-dark-700 uppercase tracking-widest">
           Our Spaces
         </p>
-        <div className="flex justify-between items-center">
-          <h2 className="font-title text-5xl leading-tight max-w-3/7">
+        <div className="flex items-center max-w-4xl">
+          <h2 className="font-title text-5xl leading-tight">
             <span className="text-primary-800">Inside the facilities behind </span>
             <span className="text-accent-500">every recovery</span>
           </h2>
-
-          <p className="font-text text-base text-dark-800 max-w-2/6">
-            Purpose-built floors, secure infrastructure and spaces designed
-            for the disciplined, round-the-clock work our clients rely on.
-          </p>
         </div>
       </motion.div>
 

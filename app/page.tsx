@@ -6,6 +6,7 @@ import About from "@/components/sections/about";
 import Team from "@/components/sections/team";
 import Contact from "@/components/sections/contact";
 import Opening from "@/components/sections/intro";
+import Services from "@/components/sections/services";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Clients />
       <Opening />
       <About />
+      <Services />
       <Bento />
       <Gallery />
       <Team />
