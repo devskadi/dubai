@@ -32,7 +32,7 @@ const languages = [
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-dark-900 px-5 sm:px-6">
+    <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-dark-900 px-5 sm:px-6">
       <video
         autoPlay
         muted
@@ -47,14 +47,14 @@ export default function Hero() {
 
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-[1] bg-linear-to-b from-primary-800/95 via-dark-900/20 to-dark-900/95"
+        className="absolute inset-0 z-1 bg-linear-to-b from-primary-800/95 via-dark-900/20 to-dark-900/95"
       />
 
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 flex h-full min-h-[100svh] w-full max-w-6xl flex-col items-center justify-end gap-6 pb-12 text-center sm:gap-8 sm:pb-14 lg:gap-10 lg:pb-16"
+        className="relative z-10 flex h-full min-h-svh w-full max-w-6xl flex-col items-center justify-end gap-6 pb-12 text-center sm:gap-8 sm:pb-14 lg:gap-10 lg:pb-16"
       >
         <motion.h1
           variants={item}
