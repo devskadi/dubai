@@ -4,9 +4,8 @@ import { motion, type Variants } from "motion/react";
 import { Home, CreditCard, CheckCircle2, Globe2 } from "lucide-react";
 
 const container: Variants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   show: {
-    opacity: 1,
     transition: { staggerChildren: 0.18, delayChildren: 0.1 },
   },
 };

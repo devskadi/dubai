@@ -6,9 +6,8 @@ import { motion, type Variants } from "motion/react";
 import { InfiniteSlider } from "@/components/motion-primitives/infinite-slider";
 
 const container: Variants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   show: {
-    opacity: 1,
     transition: { staggerChildren: 0.18, delayChildren: 0.1 },
   },
 };
@@ -68,8 +67,6 @@ function LogoCard({ name, src }: { name: string; src: string }) {
 }
 
 export default function Clients() {
-  // Shuffled client-side after mount so both rows get an independent, varied
-  // order without causing a server/client render mismatch on first paint.
   const [rowOne, setRowOne] = useState(clients);
   const [rowTwo, setRowTwo] = useState(clients);
 
@@ -86,7 +83,6 @@ export default function Clients() {
       variants={container}
       className="flex flex-col gap-8 bg-light-200 pb-8 pt-14 sm:gap-10 sm:pt-20"
     >
-      {/* Section heading */}
       <motion.div variants={item} className="flex flex-col gap-2 px-5 sm:px-6">
         <p className="text-center font-title text-sm font-semibold uppercase tracking-widest text-accent-600 sm:text-base">
           Trusted Partner
@@ -96,7 +92,6 @@ export default function Clients() {
         </p>
       </motion.div>
 
-      {/* Scrollers */}
       <motion.div
         variants={item}
         className="relative flex w-full flex-col gap-4 overflow-hidden sm:gap-6"

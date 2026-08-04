@@ -55,9 +55,8 @@ const team: TeamMember[] = [
 ];
 
 const container: Variants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   show: {
-    opacity: 1,
     transition: { staggerChildren: 0.18, delayChildren: 0.1 },
   },
 };
@@ -100,7 +99,7 @@ export default function Team() {
           The frontline
         </p>
 
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col mb-8 gap-4 lg:flex-row lg:items-center lg:justify-between">
           <h2 className="font-title text-3xl leading-tight sm:text-4xl lg:text-5xl">
             <span className="text-primary-800">Meet the team behind the </span>
             <span className="text-accent-500">recovery</span>
@@ -112,8 +111,6 @@ export default function Team() {
         </div>
       </motion.div>
 
-      {/* Don't render either variant until mounted, so we never flash the
-          wrong one on the server / before matchMedia resolves. */}
       {isMounted && (
         <>
           {compact ? (

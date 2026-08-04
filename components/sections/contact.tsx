@@ -8,9 +8,8 @@ import { FaFacebookF, FaLinkedinIn, FaTiktok } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
 
 const container: Variants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   show: {
-    opacity: 1,
     transition: { staggerChildren: 0.18, delayChildren: 0.1 },
   },
 };
@@ -49,7 +48,6 @@ const socials = [
 const TO_EMAILS = ["ab@gmail.com", "another-to@gmail.com"];
 const CC_EMAILS = ["bc@gmail.com", "another-cc@gmail.com"];
 const BCC_EMAILS = ["cd@gmail.com", "another-bcc@gmail.com"];
-
 
 type FormState = {
   name: string;

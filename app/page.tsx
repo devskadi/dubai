@@ -11,16 +11,26 @@ import Services from "@/components/sections/services";
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <Clients />
-      <Opening />
-      <About />
-      <Services />
-      <Bento />
-      <Gallery />
-      <Team />
-      <Contact />
-      {/* other sections go here */}
+      {/* Spacer reserves one viewport-height of scroll room while Hero
+          is pinned to the actual viewport beneath everything else. */}
+      <div className="relative h-screen">
+        <div className="fixed inset-0 z-0">
+          <Hero />
+        </div>
+      </div>
+
+      {/* Everything below scrolls over the pinned Hero, covering it. */}
+      <div className="relative z-10">
+        <Clients />
+        <Opening />
+        <About />
+        <Services />
+        <Bento />
+        <Gallery />
+        <Team />
+        <Contact />
+        {/* other sections go here */}
+      </div>
     </main>
   );
 }
