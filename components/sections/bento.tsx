@@ -1,23 +1,24 @@
 "use client";
 
 import { motion, type Variants } from "motion/react";
-import { Pencil, Clock, MapPin, Phone, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ShieldCheck, ScrollText, FileCheck2, MapPin, Phone } from "lucide-react";
 
 const infoCards = [
   {
-    icon: Pencil,
+    icon: ShieldCheck,
     title: "Data Protection",
     description:
       "Enterprise-grade encryption and data handling aligned with DIFC and ADGM standards",
   },
   {
-    icon: Clock,
+    icon: ScrollText,
     title: "Regulatory Adherence",
     description:
       "Full compliance with UAE Central Bank guidelines, PDPL, and regional regulatory frameworks.",
   },
   {
-    icon: MapPin,
+    icon: FileCheck2,
     title: "Audit Ready",
     description:
       "Comprehensive audit trails and documentation for all recovery activities and communications.",
@@ -49,19 +50,24 @@ const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.18, delayChildren: 0.1 },
   },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 56, scale: 0.96 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
 export default function Bento() {
   return (
     <motion.section
-      id="contact"
+      id="offices"
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
@@ -69,33 +75,38 @@ export default function Bento() {
       className="bg-primary-800"
     >
       {/* Top: heading + info cards */}
-      <div className="grid grid-cols-[1fr_2fr] py-20">
-
+      <div className="grid grid-cols-1 gap-10 px-5 py-14 sm:px-10 sm:py-16 lg:grid-cols-[1fr_2fr] lg:gap-0 lg:px-0 lg:py-20">
         {/* Left: heading */}
-        <motion.div variants={item} className="flex flex-col gap-4 pl-32 pr-8 border-r border-light-100/20">
-         <p className="relative inline-block font-heading text-xl text-light-100 uppercase tracking-widest">
+        <motion.div
+          variants={item}
+          className="flex flex-col gap-4 lg:border-r lg:border-light-100/20 lg:py-0 lg:pl-32 lg:pr-8"
+        >
+          <p className="relative inline-block font-heading text-base uppercase tracking-widest text-light-100 sm:text-lg lg:text-xl">
             Operational Trust
           </p>
-          <h2 className="font-title text-4xl leading-tight">
+          <h2 className="font-title text-2xl leading-tight sm:text-3xl lg:text-4xl">
             <span className="text-light-100">Data Privacy & </span>
             <span className="text-accent-500">Regulatory Compliance</span>
           </h2>
-          <p className="font-text text-base leading-relaxed text-light-100/70">
+          <p className="font-text text-sm leading-relaxed text-light-100/70 sm:text-base">
             Comprehensive recovery solutions across secured and unsecured portfolios.
           </p>
         </motion.div>
 
         {/* Right: 3 info cards */}
-        <motion.div variants={container} className="grid grid-cols-3 gap-12 items-stretch pr-32 pl-8">
+        <motion.div
+          variants={container}
+          className="grid grid-cols-1 items-stretch gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3 lg:gap-12 lg:pl-8 lg:pr-32"
+        >
           {infoCards.map((card) => (
             <motion.div key={card.title} variants={item} className="flex flex-col gap-4">
-              <div className="flex min-h-20 items-center justify-between">
-                <h3 className="font-title text-2xl font-bold text-light-100">
+              <div className="flex min-h-16 items-center justify-between lg:min-h-20">
+                <h3 className="font-title text-xl font-bold text-light-100 sm:text-2xl">
                   {card.title}
                 </h3>
-                 <card.icon className="h-5 w-5 shrink-0 text-accent-500" />
+                <card.icon className="h-5 w-5 shrink-0 text-accent-500" />
               </div>
-              <p className="font-text text-base leading-relaxed text-light-100/70">
+              <p className="font-text text-sm leading-relaxed text-light-100/70 sm:text-base">
                 {card.description}
               </p>
             </motion.div>
@@ -104,35 +115,33 @@ export default function Bento() {
       </div>
 
       {/* Bottom: edge-to-edge office image row */}
-      <motion.div variants={container} className="grid grid-cols-3">
+      <motion.div variants={container} className="grid grid-cols-1 sm:grid-cols-3">
         {offices.map((office) => (
           <motion.div
             key={office.city}
             variants={item}
-            className="relative flex h-96 flex-col justify-end p-10"
+            className="relative flex h-72 flex-col justify-end p-6 sm:h-80 sm:p-8 lg:h-96 lg:p-10"
           >
-            <img
+            <Image
               src={office.image}
               alt={office.city}
-              className="absolute inset-0 h-full w-full object-cover"
+              fill
+              sizes="(min-width: 640px) 33vw, 100vw"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-linear-to-t from-primary-800/90 via-primary-700/40 to-transparent" />
 
             <div className="relative flex flex-col gap-3">
-              <h3 className="font-title text-3xl font-bold text-light-100">
+              <h3 className="font-title text-2xl font-bold text-light-100 sm:text-3xl">
                 {office.city}
               </h3>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 shrink-0 text-light-100" />
-                <span className="font-text text-sm text-light-100">
-                  {office.address}
-                </span>
+                <span className="font-text text-sm text-light-100">{office.address}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 shrink-0 text-light-100" />
-                <span className="font-text text-sm text-light-100">
-                  {office.phone}
-                </span>
+                <span className="font-text text-sm text-light-100">{office.phone}</span>
               </div>
             </div>
           </motion.div>
