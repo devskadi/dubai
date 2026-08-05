@@ -107,7 +107,7 @@ export default function Contact() {
         {/* Hero */}
         <div className="relative h-[38vh] min-h-70 w-full overflow-hidden sm:h-[42vh] sm:min-h-90 lg:h-[45vh]">
           <Image
-            src="/images/about_placeholder.webp"
+            src="/images/sp.png"
             alt="Contact SPM Dubai"
             fill
             priority

@@ -83,7 +83,7 @@ export default function Services() {
           return (
             <motion.article key={service.index} variants={item} className="group min-w-0">
               <div className="flex items-center justify-between border-b border-dark-900/10 pb-4">
-                <span className="font-title text-4xl font-extrabold text-dark-900/10 transition-colors duration-500 group-hover:text-accent-500/40 sm:text-5xl">
+                <span className="font-title text-4xl font-extrabold text-dark-900/30 transition-colors duration-500 group-hover:text-accent-500/70 sm:text-5xl">
                   {service.index}
                 </span>
                 <Icon strokeWidth={1.2} className="h-6 w-6 shrink-0 text-accent-500" />

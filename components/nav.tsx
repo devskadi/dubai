@@ -54,12 +54,12 @@ export default function Nav() {
     const target = document.querySelector(href);
     if (!target) return;
 
-    const headerOffset = isDesktop ? 80 : 64; // matches h-20 / h-16
+    const headerOffset = isDesktop ? 80 : 64;
     const top =
       target.getBoundingClientRect().top + window.scrollY - headerOffset;
 
     window.scrollTo({ top, behavior: "smooth" });
-    setMobileOpen(false); // no-op on desktop, closes menu on mobile
+    setMobileOpen(false);
   };
 
   return (

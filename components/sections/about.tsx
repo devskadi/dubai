@@ -85,7 +85,7 @@ export default function About() {
 
           <div className="relative aspect-4/3 w-full overflow-hidden rounded-3xl lg:aspect-auto lg:flex-1">
             <Image
-              src="/images/about_placeholder.webp"
+              src="/images/dubai-office-1.jpeg"
               alt="Our office at work"
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
