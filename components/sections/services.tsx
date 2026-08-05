@@ -63,7 +63,7 @@ export default function Services() {
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className="bg-light-200 px-5 py-16 sm:px-10 sm:py-20 lg:px-32"
+      className="bg-light-300 px-5 py-16 sm:px-10 sm:py-20 lg:px-32"
     >
       <motion.div variants={item} className="max-w-4xl">
         <span className="relative inline-block font-heading text-base text-dark-700 uppercase tracking-widest sm:text-lg lg:text-xl">
@@ -92,7 +92,7 @@ export default function Services() {
               <h3 className="mt-6 font-heading text-lg font-bold leading-snug text-dark-900 sm:text-xl">
                 {service.title}
               </h3>
-              <p className="mt-3 font-text text-sm leading-relaxed text-dark-700">
+              <p className="mt-3 font-text text-sm leading-relaxed text-dark-800">
                 {service.description}
               </p>
 
