@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, type Variants } from "motion/react";
 import Image from "next/image";
 
@@ -45,6 +46,33 @@ const legalLinks = [
 ];
 
 export default function Footer() {
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (!href.startsWith("#")) return; 
+
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    const headerOffset = isDesktop ? 80 : 64;
+    const top =
+      target.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
   return (
     <motion.footer
       initial="hidden"
@@ -104,6 +132,7 @@ export default function Footer() {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleAnchorClick(e, link.href)}
                 className="font-text text-sm text-dark-800 transition-colors hover:text-accent-500"
               >
                 {link.label}
@@ -120,6 +149,7 @@ export default function Footer() {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => handleAnchorClick(e, link.href)}
                 className="font-text text-sm text-dark-800 transition-colors hover:text-accent-500"
               >
                 {link.label}
