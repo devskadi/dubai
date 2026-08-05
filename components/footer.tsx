@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "motion/react";
+import Image from "next/image";
 
 const container: Variants = {
   hidden: {},
@@ -20,10 +21,27 @@ const item: Variants = {
 };
 
 const companyLinks = [
-  { label: "Home", href: "#" },
-  { label: "Services", href: "#services" },
+  { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
   { label: "Contact Us", href: "#contact" },
+];
+
+const serviceLinks = [
+  { label: "Secured Products", href: "#services" },
+  { label: "Unsecured Products", href: "#services" },
+  { label: "Audit Recovery", href: "#services" },
+  { label: "Local & International Accounts", href: "#services" },
+];
+
+const legalLinks = [
+  {
+    label: "Cookie Policy",
+    href: "https://www.spmadridlaw.com/cookies-policy",
+  },
+  {
+    label: "Data Privacy Policy",
+    href: "https://www.spmadridlaw.com/data-privacy-policy",
+  },
 ];
 
 export default function Footer() {
@@ -36,12 +54,14 @@ export default function Footer() {
       className="relative overflow-hidden bg-light-300 pb-10"
     >
       <div className="relative z-10 px-5 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-1 gap-10 pt-10 sm:gap-12 sm:pt-12 md:grid-cols-3 lg:pt-16">
-          <motion.div variants={item} className="flex flex-col gap-6 sm:gap-8 md:col-span-2">
+        <div className="grid grid-cols-1 gap-10 pt-10 sm:gap-12 sm:pt-12 md:grid-cols-2 lg:grid-cols-4 lg:pt-16">
+          <motion.div variants={item} className="flex flex-col gap-6 sm:gap-8 md:col-span-2 lg:col-span-2">
             <div className="flex flex-col gap-4">
-              <img
+              <Image
                 src="/logo/primary.png"
                 alt="SPM Dubai"
+                width={256}
+                height={64}
                 className="h-auto w-40 object-contain sm:w-52 lg:w-64"
               />
 
@@ -51,7 +71,7 @@ export default function Footer() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:max-w-xl">
+            <div className="grid grid-cols-1 gap-6 sm:max-w-xl sm:grid-cols-2">
               <div className="border-t border-dark-900/10 pt-4">
                 <p className="font-text text-sm font-semibold uppercase tracking-widest text-accent-500 sm:text-base">
                   Vision
@@ -90,6 +110,22 @@ export default function Footer() {
               </a>
             ))}
           </motion.div>
+
+          {/* Services */}
+          <motion.div variants={item} className="flex flex-col gap-3 sm:gap-4">
+            <p className="font-title text-sm font-bold uppercase text-dark-800 sm:text-base">
+              Services
+            </p>
+            {serviceLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="font-text text-sm text-dark-800 transition-colors hover:text-accent-500"
+              >
+                {link.label}
+              </a>
+            ))}
+          </motion.div>
         </div>
 
         {/* Bottom bar */}
@@ -100,14 +136,20 @@ export default function Footer() {
           <p className="text-center font-text text-xs text-dark-700 sm:text-sm md:text-left">
             © 2026 S.P. Madrid Dubai. All rights reserved. Licensed in UAE.
           </p>
-          <div className="flex items-center gap-4 font-text text-xs text-dark-700 sm:text-sm">
-            <a href="#" className="transition-colors hover:text-accent-500">
-              Privacy Policy
-            </a>
-            <span>·</span>
-            <a href="#" className="transition-colors hover:text-accent-500">
-              Terms of Service
-            </a>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-text text-xs text-dark-700 sm:text-sm">
+            {legalLinks.map((link, i) => (
+              <span key={link.label} className="flex items-center gap-4">
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-accent-500"
+                >
+                  {link.label}
+                </a>
+                {i < legalLinks.length - 1 && <span aria-hidden="true">·</span>}
+              </span>
+            ))}
           </div>
         </motion.div>
       </div>
