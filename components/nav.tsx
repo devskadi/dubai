@@ -87,7 +87,7 @@ export default function Nav() {
         {/* Logo — left */}
         <a href="#" className="flex items-center">
           <Image
-            src={filled ? "/logo/primary.png" : "/logo/All_White.png"}
+            src={filled ? "/logo/Primary.png" : "/logo/All_White.png"}
             alt="SPM Dubai"
             width={160}
             height={40}
