@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, type Variants } from "motion/react";
 import { TextLoop } from "@/components/motion-primitives/text-loop";
 
@@ -31,6 +32,28 @@ const languages = [
 ];
 
 export default function Hero() {
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const handleCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const target = document.querySelector("#contact");
+    if (!target) return;
+
+    const headerOffset = isDesktop ? 80 : 64;
+    const top =
+      target.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
   return (
     <section id="home" className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-dark-900 px-5 sm:px-6">
       <video
@@ -107,6 +130,7 @@ export default function Hero() {
         <motion.a
           variants={item}
           href="#contact"
+          onClick={handleCtaClick}
           className="group relative inline-flex w-fit items-center justify-center overflow-hidden rounded-full border border-light-100 bg-light-100/5 px-8 py-4 font-text backdrop-blur-md sm:px-10 sm:py-5 lg:px-12 lg:py-6"
         >
           <span

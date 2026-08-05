@@ -15,7 +15,7 @@ const stats = [
   {
     value: 3000,
     prefix: "+",
-    label: "Recoveries delivered across the GCC",
+    label: "Global Agents",
   },
   {
     value: 20,
@@ -59,7 +59,7 @@ const langItem: Variants = {
 
 export default function About() {
   const paragraph =
-    "For two decades we have run the front line of recovery for banks and lenders across the Gulf — combining disciplined operations, regional fluency and technology that keeps every account moving forward.";
+    "Delivering results across the GCC. Our regional footprint and multilingual capabilities ensure every account is reached, every debtor is engaged, and every recovery is maximized.";
 
   return (
     <motion.section
@@ -96,7 +96,7 @@ export default function About() {
 
         {/* Right column: paragraph + stats + language card */}
         <motion.div variants={container} className="flex flex-col gap-8">
-          {/* Paragraph */}
+         
           <p className="font-text text-lg leading-relaxed text-dark-900 sm:text-xl lg:text-2xl">
             {paragraph}
           </p>
