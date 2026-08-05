@@ -1,6 +1,6 @@
 <div align="center">
 
-# SPM Dubai — Recovery Solutions for the GCC
+# SPM Dubai
 
 **S.P. Madrid's marketing site** — an animated, fully responsive Next.js site.
 
@@ -45,6 +45,33 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the site. The
 page auto-updates as you edit files inside `app/` and `components/`.
+
+---
+
+## ⚙️ Configuring the Contact Form
+
+The contact form (`components/sections/contact.tsx`) and the navbar's "Get
+Started" button (`components/sections/nav.tsx`) both send mail via a
+`mailto:` link rather than a backend API — no email service or server route
+required. Recipient addresses live as plain constants near the top of each
+file:
+
+```ts
+const TO_EMAILS = ["sample@gmail.com"];
+const CC_EMAILS = ["sample@gmail.com"];
+const BCC_EMAILS = ["sample@gmail.com"];
+```
+
+Edit these arrays with real addresses before deploying.
+
+> ⚠️ **These constants are duplicated in both `contact.tsx` and `nav.tsx`.**
+> They aren't shared from a single source yet, so update *both* files when
+> changing an address, or a future edit could silently update one and miss
+> the other.
+
+Because this approach relies on the visitor's own configured email client,
+delivery isn't guaranteed for every user (e.g. no default mail app set up).
+Swap in a real backend endpoint if guaranteed delivery becomes a requirement.
 
 ---
 
