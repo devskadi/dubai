@@ -45,9 +45,9 @@ const socials = [
 ];
 
 // Recipient config
-const TO_EMAILS = ["ab@gmail.com", "another-to@gmail.com"];
-const CC_EMAILS = ["bc@gmail.com", "another-cc@gmail.com"];
-const BCC_EMAILS = ["cd@gmail.com", "another-bcc@gmail.com"];
+const TO_EMAILS = ["sample@gmail.com", "another-to@gmail.com"];
+const CC_EMAILS = ["samplecc@gmail.com", "another-cc@gmail.com"];
+const BCC_EMAILS = ["samplebcc@gmail.com", "another-bcc@gmail.com"];
 
 type FormState = {
   name: string;
