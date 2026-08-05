@@ -50,15 +50,8 @@ export default function Hero() {
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
-  // Tracks raw page scroll (Hero is pinned via `fixed` in page.tsx, so it
-  // never scrolls itself — we drive its shrink effect off window scrollY
-  // instead of an element-relative scroll progress).
   const { scrollY } = useScroll();
 
-  // Over the first viewport-height of scroll (i.e. while the next section
-  // is sliding up to cover Hero), scale it down slightly and round its
-  // corners — the "shrinking card" effect. Past that point it holds still
-  // rather than continuing to shrink indefinitely.
   const scale = useTransform(scrollY, [0, viewportHeight], [1, 0.88]);
   const borderRadius = useTransform(scrollY, [0, viewportHeight], [0, 32]);
   const opacity = useTransform(scrollY, [0, viewportHeight * 0.8], [1, 0.4]);
