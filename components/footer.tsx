@@ -163,10 +163,10 @@ export default function Footer() {
           variants={item}
           className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-dark-900/10 pt-6 sm:mt-16 sm:pt-8 md:flex-row"
         >
-          <p className="text-center font-text text-xs text-dark-700 sm:text-sm md:text-left">
+          <p className="text-center font-text text-xs text-dark-800 sm:text-sm md:text-left">
             © 2026 S.P. Madrid Dubai. All rights reserved. Licensed in UAE.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-text text-xs text-dark-700 sm:text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 font-text text-xs text-dark-800 sm:text-sm">
             {legalLinks.map((link, i) => (
               <span key={link.label} className="flex items-center gap-4">
                 <a
