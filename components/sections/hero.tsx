@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, type Variants } from "motion/react";
+import { motion, useScroll, useTransform, type Variants } from "motion/react";
 import { TextLoop } from "@/components/motion-primitives/text-loop";
 
 const container: Variants = {
@@ -33,6 +33,7 @@ const languages = [
 
 export default function Hero() {
   const [isDesktop, setIsDesktop] = useState(true);
+  const [viewportHeight, setViewportHeight] = useState(1);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -41,6 +42,26 @@ export default function Hero() {
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
+
+  useEffect(() => {
+    const updateHeight = () => setViewportHeight(window.innerHeight);
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
+  // Tracks raw page scroll (Hero is pinned via `fixed` in page.tsx, so it
+  // never scrolls itself — we drive its shrink effect off window scrollY
+  // instead of an element-relative scroll progress).
+  const { scrollY } = useScroll();
+
+  // Over the first viewport-height of scroll (i.e. while the next section
+  // is sliding up to cover Hero), scale it down slightly and round its
+  // corners — the "shrinking card" effect. Past that point it holds still
+  // rather than continuing to shrink indefinitely.
+  const scale = useTransform(scrollY, [0, viewportHeight], [1, 0.88]);
+  const borderRadius = useTransform(scrollY, [0, viewportHeight], [0, 32]);
+  const opacity = useTransform(scrollY, [0, viewportHeight * 0.8], [1, 0.4]);
 
   const handleCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -55,7 +76,11 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-dark-900 px-5 sm:px-6">
+    <motion.section
+      id="home"
+      style={{ scale, borderRadius, opacity }}
+      className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-dark-900 px-5 sm:px-6"
+    >
       <video
         autoPlay
         muted
@@ -149,6 +174,6 @@ export default function Hero() {
           </span>
         </motion.a>
       </motion.div>
-    </section>
+    </motion.section>
   );
 }
